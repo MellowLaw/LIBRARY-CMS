@@ -13,8 +13,12 @@
                     <ul class="nav">
                         <li><a href="{{ route('library.index') }}" class="{{ request()->routeIs('library.index') ? 'active' : '' }}">Home</a></li>
                         <li><a href="{{ route('library.explore') }}" class="{{ request()->routeIs('library.explore') ? 'active' : '' }}">Explore</a></li>
-                        <li><a href="{{ route('library.details') }}" class="{{ request()->routeIs('library.details') ? 'active' : '' }}">Item Details</a></li>
-                        <li><a href="{{ route('library.author') }}" class="{{ request()->routeIs('library.author') ? 'active' : '' }}">Author</a></li>
+                        @if(isset($book))
+    <li><a href="{{ route('library.details', ['id' => $book->id]) }}" class="{{ request()->routeIs('library.details') ? 'active' : '' }}">Item Details</a></li>
+    <li><a href="{{ route('library.author', ['id' => $book->author_id]) }}" class="{{ request()->routeIs('library.author') ? 'active' : '' }}">Author</a></li>
+@else
+    <li><a href="{{ route('library.explore') }}">Browse Books</a></li>
+@endif
                         <li><a href="{{ route('library.create') }}" class="{{ request()->routeIs('library.create') ? 'active' : '' }}">Create Yours</a></li>
                     </ul>   
                     <a class='menu-trigger'>

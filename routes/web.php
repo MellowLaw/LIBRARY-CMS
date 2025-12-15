@@ -8,7 +8,7 @@ use App\Http\Controllers\Web\ResourceController;
 use App\Http\Controllers\Public\PageController as PublicPageController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\LibraryController;
+use App\Http\Controllers\Web\LibraryController;
 
 // Public routes
 Route::get('/', function () {

@@ -49,54 +49,21 @@
                                 <h2>Browse Through Book <em>Categories</em> Here.</h2>
                             </div>
                         </div>
+                        @forelse($categories as $category)
                         <div class="col-lg-2 col-sm-6">
                             <div class="item">
                                 <div class="icon">
-                                    <img src="{{ asset('images/icon-01.png') }}" alt="Motivational Books">
+                                    <img src="{{ $category->icon ? asset('storage/' . $category->icon) : asset('images/icon-0' . $loop->iteration . '.png') }}" alt="{{ $category->name }}">
                                 </div>
-                                <h4>Motivational</h4>
+                                <h4>{{ $category->name }}</h4>
+                                <span class="badge bg-primary">{{ $category->books_count }} books</span>
                             </div>
                         </div>
-                        <div class="col-lg-2 col-sm-6">
-                            <div class="item">
-                                <div class="icon">
-                                    <img src="{{ asset('images/icon-02.png') }}" alt="Money Books">
-                                </div>
-                                <h4>Money</h4>
-                            </div>
+                        @empty
+                        <div class="col-12 text-center">
+                            <p>No categories available. Please add some categories.</p>
                         </div>
-                        <div class="col-lg-2 col-sm-6">
-                            <div class="item">
-                                <div class="icon">
-                                    <img src="{{ asset('images/icon-03.png') }}" alt="Psychological Books">
-                                </div>
-                                <h4>Psychological</h4>
-                            </div>
-                        </div>
-                        <div class="col-lg-2 col-sm-6">
-                            <div class="item">
-                                <div class="icon">
-                                    <img src="{{ asset('images/icon-04.png') }}" alt="Story Books">
-                                </div>
-                                <h4>Story</h4>
-                            </div>
-                        </div>
-                        <div class="col-lg-2 col-sm-6">
-                            <div class="item">
-                                <div class="icon">
-                                    <img src="{{ asset('images/icon-05.png') }}" alt="Fictional Books">
-                                </div>
-                                <h4>Fictional</h4>
-                            </div>
-                        </div>
-                        <div class="col-lg-2 col-sm-6">
-                            <div class="item">
-                                <div class="icon">
-                                    <img src="{{ asset('images/icon-06.png') }}" alt="Romance Books">
-                                </div>
-                                <h4>Romance</h4>
-                            </div>
-                        </div>
+                        @endforelse
                     </div>
                 </div>
             </div>
@@ -124,105 +91,39 @@
             </div>
             <div class="col-lg-12">
                 <div class="row grid">
+                    @forelse($featuredBooks as $book)
                     <div class="col-lg-6 currently-market-item all msc">
                         <div class="item">
                             <div class="left-image">
-                                <img src="{{ asset('images/book1.webp') }}" alt="Sarah Maas Book" style="border-radius: 20px; min-width: 195px;">
+                                <img src="{{ $book->cover_image_url }}" alt="{{ $book->title }}" style="border-radius: 20px; min-width: 195px; max-height: 300px; object-fit: cover;">
                             </div>
                             <div class="right-content">
-                                <h4>Sarah Maas</h4>
+                                <h4>{{ Str::limit($book->title, 20) }}</h4>
                                 <span class="author">
-                                    <img src="{{ asset('images/author.jpg') }}" alt="Author" style="max-width: 50px; border-radius: 50%;">
-                                    <h6>Robert T Kiyosaki</h6>
+                                    @if($book->author->photo)
+                                        <img src="{{ asset('storage/' . $book->author->photo) }}" alt="{{ $book->author->name }}" style="max-width: 50px; border-radius: 50%;">
+                                    @else
+                                        <img src="{{ asset('images/author.jpg') }}" alt="{{ $book->author->name }}" style="max-width: 50px; border-radius: 50%;">
+                                    @endif
+                                    <h6>{{ $book->author->name }}</h6>
                                 </span>
                                 <div class="line-dec"></div>
                                 <span class="bid">
-                                    Current Available<br><strong>10</strong><br> 
-                                </span>
-                                <span class="ends">
-                                    Total<br><strong>20</strong><br>
+                                    Available<br><strong>{{ $book->quantity }}</strong><br> 
                                 </span>
                                 <div class="text-button">
-                                    <a href="{{ route('library.details') }}">View Item Details</a>
+                                    <a href="{{ route('library.details', $book->id) }}">View Item Details</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="col-lg-6 currently-market-item all msc">
-                        <div class="item">
-                            <div class="left-image">
-                                <img src="{{ asset('images/book2.webp') }}" alt="Broken Blade Book" style="border-radius: 20px; min-width: 195px;">
-                            </div>
-                            <div class="right-content">
-                                <h4>Broken Blade</h4>
-                                <span class="author">
-                                    <img src="{{ asset('images/author.jpg') }}" alt="Author" style="max-width: 50px; border-radius: 50%;">
-                                    <h6>Robert T Kiyosaki</h6>
-                                </span>
-                                <div class="line-dec"></div>
-                                <span class="bid">
-                                    Current Available<br><strong>10</strong><br> 
-                                </span>
-                                <span class="ends">
-                                    Total<br><strong>20</strong><br>
-                                </span>
-                                <div class="text-button">
-                                    <a href="{{ route('library.details') }}">View Item Details</a>
-                                </div>
-                            </div>
-                        </div>
+                    @empty
+                    <div class="col-12 text-center">
+                        <p>No featured books available. Check back later!</p>
                     </div>
+                    @endforelse
 
-                    <div class="col-lg-6 currently-market-item all msc">
-                        <div class="item">
-                            <div class="left-image">
-                                <img src="{{ asset('images/book3.webp') }}" alt="Dwarves Book" style="border-radius: 20px; min-width: 195px;">
-                            </div>
-                            <div class="right-content">
-                                <h4>Dwarves</h4>
-                                <span class="author">
-                                    <img src="{{ asset('images/author.jpg') }}" alt="Author" style="max-width: 50px; border-radius: 50%;">
-                                    <h6>Robert T Kiyosaki</h6>
-                                </span>
-                                <div class="line-dec"></div>
-                                <span class="bid">
-                                    Current Available<br><strong>10</strong><br> 
-                                </span>
-                                <span class="ends">
-                                    Total<br><strong>20</strong><br>
-                                </span>
-                                <div class="text-button">
-                                    <a href="{{ route('library.details') }}">View Item Details</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 currently-market-item all msc">
-                        <div class="item">
-                            <div class="left-image">
-                                <img src="{{ asset('images/book4.webp') }}" alt="Steven Erikson Book" style="border-radius: 20px; min-width: 195px;">
-                            </div>
-                            <div class="right-content">
-                                <h4>Steven Erikson</h4>
-                                <span class="author">
-                                    <img src="{{ asset('images/author.jpg') }}" alt="Author" style="max-width: 50px; border-radius: 50%;">
-                                    <h6>Robert T Kiyosaki</h6>
-                                </span>
-                                <div class="line-dec"></div>
-                                <span class="bid">
-                                    Current Available<br><strong>10</strong><br> 
-                                </span>
-                                <span class="ends">
-                                    Total<br><strong>20</strong><br>
-                                </span>
-                                <div class="text-button">
-                                    <a href="{{ route('library.details') }}">View Item Details</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    {{-- Additional books will be loaded dynamically via the $featuredBooks collection --}}
                 </div>
             </div>
         </div>
