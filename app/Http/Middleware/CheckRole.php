@@ -23,10 +23,7 @@ class CheckRole
         }
 
         if (!in_array($request->user()->role, $roles)) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Unauthorized',
-            ], 403);
+            abort(403, 'Unauthorized action.');
         }
 
         return $next($request);

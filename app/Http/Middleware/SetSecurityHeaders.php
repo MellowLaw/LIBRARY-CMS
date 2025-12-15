@@ -25,7 +25,7 @@ class SetSecurityHeaders
             "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; " .
             "font-src 'self' https://fonts.gstatic.com; " .
             "img-src 'self' data: https:; " .
-            "connect-src 'self' https://cdn.tiny.cloud;"
+            "connect-src 'self' https://cdn.tiny.cloud https://cdn.jsdelivr.net;"
         );
 
         // Prevent MIME type sniffing

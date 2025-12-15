@@ -17,7 +17,7 @@
     <link href="https://cdn.jsdelivr.net/npm/heroicons@2.0.18/outline/index.min.css" rel="stylesheet">
     
     <!-- TinyMCE -->
-    <script src="https://cdn.tiny.cloud/1/hdnrh3pm2e461glxdr294c4ze1i516s1evakymyljqpgk4xy/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tinymce@6.8.6/tinymce.min.js" referrerpolicy="origin"></script>
     
     <style>
         * {

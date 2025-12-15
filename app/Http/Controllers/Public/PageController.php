@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Public;
 
 use App\Http\Controllers\Controller;
+use App\Models\News;
 use App\Models\Page;
 use App\Models\Menu;
 use App\Models\StaffProfile;
@@ -16,6 +17,11 @@ class PageController extends Controller
      */
     public function home()
     {
+        $news = News::published()
+            ->orderBy('published_at', 'desc')
+            ->limit(6)
+            ->get();
+
         $pages = Page::published()
             ->orderBy('published_at', 'desc')
             ->limit(6)
@@ -35,7 +41,7 @@ class PageController extends Controller
             ->topLevel()
             ->get();
 
-        return view('public.home', compact('pages', 'staff', 'resources', 'menus'));
+        return view('public.home', compact('news', 'pages', 'staff', 'resources', 'menus'));
     }
 
     /**

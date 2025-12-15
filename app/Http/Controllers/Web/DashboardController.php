@@ -18,12 +18,18 @@ class DashboardController extends Controller
             return redirect()->route('login');
         }
 
-        $totalPages = Page::count();
-        $publishedPages = Page::where('is_published', true)->count();
-        $staffCount = StaffProfile::count();
-        $resourceCount = ResourceLink::count();
-        
-        $recentPages = Page::with('creator')
+        // Viewers get their own dashboard view
+        if (Auth::user()->role === 'viewer') {
+            return view('dashboard.viewer');
+        }
+
+        $totalPages = \App\Models\Page::count();
+        $publishedPages = \App\Models\Page::where('is_published', true)->count();
+        $staffCount = \App\Models\StaffProfile::count();
+        $resourceCount = \App\Models\ResourceLink::count();
+        $newsCount = \App\Models\News::count();
+
+        $recentPages = \App\Models\Page::with('creator')
             ->orderBy('updated_at', 'desc')
             ->limit(5)
             ->get();
@@ -33,6 +39,7 @@ class DashboardController extends Controller
             'publishedPages',
             'staffCount',
             'resourceCount',
+            'newsCount',
             'recentPages'
         ));
     }

@@ -17,7 +17,7 @@ class RegisterController extends Controller
     public function showRegistrationForm()
     {
         if (Auth::check()) {
-            return redirect()->route('library.index');
+            return redirect()->route('public.home');
         }
         return view('auth.register');
     }
@@ -45,6 +45,6 @@ class RegisterController extends Controller
 
         Auth::login($user);
 
-        return redirect()->route('library.index')->with('success', 'Registration successful! Welcome to our library.');
+        return redirect()->route('public.home')->with('success', 'Registration successful! Welcome to our library.');
     }
 }

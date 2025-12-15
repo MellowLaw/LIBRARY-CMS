@@ -8,18 +8,10 @@ use App\Http\Requests\UpdatePageRequest;
 use App\Models\Page;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Routing\Controllers\HasMiddleware; // 1. Import this
-use Illuminate\Routing\Controllers\Middleware;
-class PageController extends Controller implements HasMiddleware
+class PageController extends Controller
 {
-    public static function middleware(): array
-    {
-        return [
-            new Middleware('auth'),
-            // If you needed to exclude methods, you would do:
-            // new Middleware('auth', except: ['index', 'show']),
-        ];
-    }
+    // Middleware is handled in routes/web.php or via constructor if needed
+
 
     /**
      * Display a listing of the resource.
@@ -47,7 +39,7 @@ class PageController extends Controller implements HasMiddleware
     public function store(StorePageRequest $request)
     {
         $data = $request->validated();
-        
+
         $page = Page::create([
             'title' => $data['title'],
             'slug' => $data['slug'],
@@ -68,9 +60,9 @@ class PageController extends Controller implements HasMiddleware
     public function show(Page $page)
     {
         $this->authorize('view', $page);
-        
+
         $page->load(['creator', 'sections']);
-        
+
         return view('pages.show', compact('page'));
     }
 
@@ -80,7 +72,7 @@ class PageController extends Controller implements HasMiddleware
     public function edit(Page $page)
     {
         $this->authorize('update', $page);
-        
+
         return view('pages.edit', compact('page'));
     }
 
@@ -92,22 +84,29 @@ class PageController extends Controller implements HasMiddleware
         $this->authorize('update', $page);
 
         $data = $request->validated();
-        
-        $updateData = [
-            'title' => $data['title'] ?? $page->title,
-            'slug' => $data['slug'] ?? $page->slug,
-            'meta_description' => $data['meta_description'] ?? $page->meta_description,
+
+        // Use Model methods if applicable, otherwise straight fill
+        $page->fill([
+            'title' => $data['title'],
+            'slug' => $data['slug'],
+            'meta_description' => $data['meta_description'] ?? null,
             'updated_by' => Auth::id(),
-        ];
-        
-        // Handle publish action
-        if ($request->has('is_published') && !$page->is_published) {
-            $updateData['is_published'] = true;
-            $updateData['published_at'] = now();
-            $updateData['scheduled_at'] = null;
+        ]);
+
+        // Handle publish/schedule logic via Model helpers or direct attribute setting
+        if ($request->has('is_published') && $request->boolean('is_published')) {
+            if (!$page->is_published) {
+                // Changing from draft to published
+                $page->publish(); // Uses model method
+            }
+        } elseif ($request->filled('scheduled_at')) {
+            // Scheduling
+            $page->schedulePublish($request->scheduled_at);
+        } else {
+            // Saving as draft or updating existing draft/published state without changing status
+            // If we unticked publish? usually we don't unpublish in this form logic unless explicit
+            $page->save();
         }
-        
-        $page->update($updateData);
 
         return redirect()->route('pages.index')
             ->with('success', 'Page updated successfully.');

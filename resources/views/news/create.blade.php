@@ -1,0 +1,145 @@
+@extends('layouts.app')
+
+@section('page-title', 'Create News')
+@section('page-subtitle', 'Share updates and announcements')
+
+@section('content')
+    <form method="POST" action="{{ route('news.store') }}" class="space-y-6" enctype="multipart/form-data">
+        @csrf
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Main Form -->
+            <div class="lg:col-span-2">
+                <!-- Content Card -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                    <div class="space-y-4">
+                        <!-- Title -->
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-900 mb-2">Title <span
+                                    class="text-red-500">*</span></label>
+                            <input type="text" name="title" value="{{ old('title') }}" placeholder="Enter news headline"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent font-medium text-lg"
+                                required>
+                            @error('title')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <!-- Excerpt -->
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-900 mb-2">Excerpt</label>
+                            <textarea name="excerpt" placeholder="Short summary (optional)" rows="2"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-sm">{{ old('excerpt') }}</textarea>
+                        </div>
+
+                        <!-- Editor -->
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-900 mb-2">Content</label>
+                            <textarea id="editor" name="content" required
+                                placeholder="Write the announcement details here..."
+                                class="w-full h-96 border border-gray-300 rounded-lg">{{ old('content') }}</textarea>
+                            @error('content')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Buttons -->
+                <div class="flex items-center gap-3">
+                    <button type="submit"
+                        class="inline-flex items-center gap-2 px-6 py-2.5 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-smooth font-medium">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        Create News
+                    </button>
+                    <a href="{{ route('news.index') }}"
+                        class="px-6 py-2.5 border border-gray-300 rounded-lg hover:bg-gray-50 transition-smooth font-medium text-gray-700">
+                        Cancel
+                    </a>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="lg:col-span-1 space-y-6">
+                <!-- Publishing Options -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                    <h3 class="text-lg font-bold text-gray-900 mb-4">Publishing</h3>
+
+                    <div class="space-y-3">
+                        <label class="flex items-center gap-3 cursor-pointer">
+                            <input type="checkbox" name="is_published"
+                                class="w-5 h-5 rounded border-gray-300 text-emerald-600 focus:ring-emerald-500" value="1" {{ old('is_published') ? 'checked' : '' }}>
+                            <span class="text-sm font-medium text-gray-700">Publish immediately</span>
+                        </label>
+
+                        <div>
+                            <label class="block text-xs text-gray-500 mb-1">Publish At (Optional)</label>
+                            <input type="datetime-local" name="published_at" value="{{ old('published_at') }}"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                        </div>
+
+                        <p class="text-xs text-gray-500 mt-2">
+                            Published items will be visible on the "Latest News" section of the website.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Featured Image -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                    <h3 class="text-sm font-bold text-gray-900 mb-2">Featured Image</h3>
+                    <input type="file" name="image" accept="image/*"
+                        class="block w-full text-sm text-gray-700 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100">
+                    @error('image')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Slug -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                    <h3 class="text-sm font-bold text-gray-900 mb-2">SEO / URL</h3>
+                    <div class="space-y-2">
+                        <label class="text-xs text-gray-500">Custom Slug (Optional)</label>
+                        <input type="text" name="slug" value="{{ old('slug') }}" placeholder="custom-slug"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    @push('scripts')
+        <script>
+            if (window.tinymce) {
+                tinymce.init({
+                    selector: '#editor',
+                    base_url: 'https://cdn.jsdelivr.net/npm/tinymce@6.8.6',
+                    suffix: '.min',
+                    height: 400,
+                    plugins: 'link image code media table lists',
+                    toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright | bullist numlist | link image | code',
+                    menubar: false,
+                    branding: false,
+                    promotion: false,
+                    setup: function(editor) {
+                        editor.on('change keyup', function() {
+                            editor.save();
+                        });
+                    }
+                });
+            }
+
+            document.addEventListener('DOMContentLoaded', function () {
+                const form = document.querySelector('form[action="{{ route('news.store') }}"]');
+                if (!form) return;
+
+                form.addEventListener('submit', function () {
+                    if (window.tinymce) {
+                        tinymce.triggerSave();
+                    }
+                });
+            });
+        </script>
+    @endpush
+@endsection

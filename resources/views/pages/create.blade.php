@@ -130,16 +130,20 @@
 
 @push('scripts')
 <script>
-    tinymce.init({
-        selector: '#editor',
-        height: 400,
-        plugins: 'link image code media table lists',
-        toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright | bullist numlist | link image | code',
-        menubar: false,
-        content_style: 'body { font-family: Inter, sans-serif; }',
-        branding: false,
-        promotion: false,
-    });
+    if (window.tinymce) {
+        tinymce.init({
+            selector: '#editor',
+            base_url: 'https://cdn.jsdelivr.net/npm/tinymce@6.8.6',
+            suffix: '.min',
+            height: 400,
+            plugins: 'link image code media table lists',
+            toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright | bullist numlist | link image | code',
+            menubar: false,
+            content_style: 'body { font-family: Inter, sans-serif; }',
+            branding: false,
+            promotion: false,
+        });
+    }
 </script>
 @endpush
 @endsection

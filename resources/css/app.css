@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+[x-cloak] { display: none !important; }
+
 /* Custom transition utility */
 @layer utilities {
     .transition-smooth {

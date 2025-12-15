@@ -14,41 +14,79 @@ class LoginController extends Controller
      * Show the login form.
      */
     public function showLoginForm()
-{
-    if (Auth::check()) {
-        if (Auth::user()->role === 'admin' || Auth::user()->role === 'librarian') {
-            return redirect()->route('dashboard');
+    {
+        if (Auth::check()) {
+            if (Auth::user()->role === 'admin' || Auth::user()->role === 'librarian') {
+                return redirect()->route('dashboard');
+            }
+            return redirect()->route('public.home');
         }
-        return redirect()->route('library.index');
+        return view('auth.login');
     }
-    return view('auth.login');
-}
 
     /**
      * Handle a login request.
      */
     public function login(Request $request)
-{
-    $request->validate([
-        'email' => ['required', 'email'],
-        'password' => ['required'],
-    ]);
-    $credentials = $request->only('email', 'password');
-    $remember = $request->filled('remember');
-    if (Auth::attempt($credentials, $remember)) {
-        $request->session()->regenerate();
-        // Redirect based on user role
-        if (Auth::user()->role === 'admin' || Auth::user()->role === 'librarian') {
-            return redirect()->intended(route('dashboard'));
+    {
+        $this->ensureIsNotRateLimited($request);
+
+        $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+
+        $credentials = $request->only('email', 'password');
+        $remember = $request->filled('remember');
+
+        if (Auth::attempt($credentials, $remember)) {
+            \Illuminate\Support\Facades\RateLimiter::clear($this->throttleKey($request));
+            $request->session()->regenerate();
+
+            // Redirect based on user role
+            if (Auth::user()->role === 'admin' || Auth::user()->role === 'librarian') {
+                return redirect()->intended(route('dashboard'));
+            }
+
+            // For 'viewer' role, redirect to library
+            return redirect()->intended(route('public.home'));
         }
-        
-        // For 'viewer' role, redirect to library
-        return redirect()->intended(route('library.index'));
+
+        \Illuminate\Support\Facades\RateLimiter::hit($this->throttleKey($request));
+
+        throw ValidationException::withMessages([
+            'email' => ['The provided credentials do not match our records.'],
+        ]);
     }
-    throw ValidationException::withMessages([
-        'email' => ['The provided credentials do not match our records.'],
-    ]);
-}
+
+    /**
+     * Ensure the login request is not rate limited.
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function ensureIsNotRateLimited(Request $request): void
+    {
+        if (!\Illuminate\Support\Facades\RateLimiter::tooManyAttempts($this->throttleKey($request), 5)) {
+            return;
+        }
+
+        $seconds = \Illuminate\Support\Facades\RateLimiter::availableIn($this->throttleKey($request));
+
+        throw ValidationException::withMessages([
+            'email' => trans('auth.throttle', [
+                'seconds' => $seconds,
+                'minutes' => ceil($seconds / 60),
+            ]),
+        ]);
+    }
+
+    /**
+     * Get the rate limiting throttle key for the request.
+     */
+    public function throttleKey(Request $request): string
+    {
+        return \Illuminate\Support\Str::transliterate(\Illuminate\Support\Str::lower($request->input('email')) . '|' . $request->ip());
+    }
     /**
      * Handle a logout request.
      */
