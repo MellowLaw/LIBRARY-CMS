@@ -60,6 +60,15 @@
                     <button type="submit" class="w-full py-3 bg-gradient-to-r from-emerald-600 to-emerald-700 text-white font-semibold rounded-lg hover:shadow-lg hover:from-emerald-700 hover:to-emerald-800 transition-all">
                         Sign In
                     </button>
+
+                    <div class="text-center mt-4">
+                        <p class="text-sm text-gray-600">
+                            Don't have an account? 
+                            <a href="{{ route('register') }}" class="font-semibold text-emerald-600 hover:text-emerald-800">
+                                Register here
+                            </a>
+                        </p>
+                    </div>
                 </form>
 
                 <!-- Demo Credentials -->

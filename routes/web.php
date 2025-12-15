@@ -9,6 +9,7 @@ use App\Http\Controllers\Public\PageController as PublicPageController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Web\LibraryController;
+use App\Http\Controllers\Auth\RegisterController;
 
 // Public routes
 Route::get('/', function () {
@@ -56,3 +57,5 @@ Route::prefix('library')->name('library.')->group(function() {
     Route::get('/create', [LibraryController::class, 'create'])->name('create');
     Route::post('/store', [LibraryController::class, 'store'])->name('store');
 });
+Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+Route::post('/register', [RegisterController::class, 'register'])->name('register.submit');

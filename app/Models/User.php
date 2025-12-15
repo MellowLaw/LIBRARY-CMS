@@ -1,7 +1,9 @@
 <?php
+// app/Models/User.php
 
 namespace App\Models;
 
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -13,6 +15,8 @@ class User extends Authenticatable
 
     protected $fillable = [
         'name',
+        'first_name',
+        'last_name',
         'email',
         'password',
         'role',
@@ -30,23 +34,6 @@ class User extends Authenticatable
         'is_active' => 'boolean',
     ];
 
-    // Relationships
-    public function pagesCreated()
-    {
-        return $this->hasMany(Page::class, 'created_by');
-    }
-
-    public function pagesUpdated()
-    {
-        return $this->hasMany(Page::class, 'updated_by');
-    }
-
-    public function auditLogs()
-    {
-        return $this->hasMany(AuditLog::class);
-    }
-
-    // Helper methods
     public function isAdmin()
     {
         return $this->role === 'admin';
@@ -57,8 +44,8 @@ class User extends Authenticatable
         return $this->role === 'librarian';
     }
 
-    public function canEdit()
+    public function isViewer()
     {
-        return in_array($this->role, ['admin', 'librarian']);
+        return $this->role === 'viewer';
     }
 }
