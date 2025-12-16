@@ -1,57 +1,61 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full bg-white">
+<html lang="en" class="h-full bg-[#efeae4]">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Account Created - AddLib</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
         rel="stylesheet">
     <style>
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
         }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Outfit', sans-serif;
+        }
     </style>
 </head>
 
-<body class="h-full">
-    <div class="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
-        <div class="sm:mx-auto sm:w-full sm:max-w-md">
-            <div
-                class="w-12 h-12 bg-indigo-600 rounded-lg flex items-center justify-center text-white mx-auto shadow-md">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253">
-                    </path>
+<body class="h-full flex items-center justify-center p-4">
+    <!-- Decorative Background Elements -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-[#ec3412]/5 rounded-full blur-[100px]"></div>
+        <div class="absolute bottom-[-10%] left-[-5%] w-[500px] h-[500px] bg-[#ec3412]/5 rounded-full blur-[100px]"></div>
+    </div>
+
+    <div class="w-full max-w-md bg-white rounded-2xl shadow-xl overflow-hidden border border-white/50 relative z-10 transform transition-all hover:scale-[1.01] duration-300">
+        <div class="p-8 text-center">
+            <!-- Icon -->
+            <div class="mx-auto flex items-center justify-center h-20 w-20 rounded-full bg-green-50 mb-6 animate-bounce-subtle">
+                <svg class="h-10 w-10 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
             </div>
-            <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">Success!</h2>
-        </div>
 
-        <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-            <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10 border border-gray-100">
-                <div class="text-center">
-                    <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100 mb-4">
-                        <svg class="h-6 w-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7">
-                            </path>
-                        </svg>
-                    </div>
-                    <h3 class="text-lg font-medium leading-6 text-gray-900">Account Created Successfully</h3>
-                    <p class="mt-2 text-sm text-gray-500">
-                        Your account has been fully created. You can now access your dashboard.
-                    </p>
+            <h2 class="text-3xl font-bold text-gray-900 mb-2">Welcome Aboard!</h2>
+            <p class="text-gray-500 text-lg mb-8">Your account has been successfully created. You're all set to explore AddLib.</p>
 
-                    <div class="mt-6">
-                        <a href="{{ route('dashboard') }}"
-                            class="flex w-full justify-center rounded-lg bg-indigo-600 px-3 py-2.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 transition-all">
-                            Continue
-                        </a>
-                    </div>
-                </div>
+            <div class="space-y-4">
+                <a href="{{ route('dashboard') }}"
+                    class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-semibold rounded-xl text-white bg-[#ec3412] hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-all duration-200 shadow-lg hover:shadow-orange-500/30 transform active:scale-95">
+                    Go to Dashboard
+                    <svg class="ml-2 -mr-1 w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                </a>
+                
+                <a href="{{ route('public.home') }}" class="block text-sm font-medium text-gray-500 hover:text-[#ec3412] transition-colors">
+                    Back to Home
+                </a>
             </div>
         </div>
+        
+        <!-- Bottom flair -->
+        <div class="h-1.5 w-full bg-gradient-to-r from-orange-400 via-[#ec3412] to-orange-600"></div>
     </div>
 </body>
 

@@ -53,10 +53,13 @@
                 <div class="mt-8">
                     <!-- Dynamic Avatar Animation -->
                     <div class="flex flex-col items-center justify-center mb-6">
-                        <div id="register-avatar" class="w-24 h-24 rounded-full bg-slate-100 flex items-center justify-center border-4 border-white shadow-lg transition-all duration-500 ease-out transform mb-2">
+                        <div id="register-avatar"
+                            class="w-24 h-24 rounded-full bg-slate-100 flex items-center justify-center border-4 border-white shadow-lg transition-all duration-500 ease-out transform mb-2">
                             <span id="avatar-initials" class="text-3xl font-bold text-slate-400 tracking-wider">?</span>
                         </div>
-                        <p id="greeting-text" class="text-slate-500 text-sm font-medium h-5 transition-opacity duration-300">Start typing your name...</p>
+                        <p id="greeting-text"
+                            class="text-slate-500 text-sm font-medium h-5 transition-opacity duration-300">Start typing
+                            your name...</p>
                     </div>
 
                     <form action="{{ route('register') }}" method="POST" class="space-y-5" id="registerForm" novalidate>
@@ -70,9 +73,12 @@
                                         required
                                         class="form_input block w-full rounded-lg border-0 py-2.5 px-3 shadow-sm ring-1 ring-inset ring-slate-300 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6 transition-all"
                                         value="{{ old('first_name') }}">
-                                    <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none transition-opacity duration-300 opacity-0" id="fn-icon-valid">
+                                    <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none transition-opacity duration-300 opacity-0"
+                                        id="fn-icon-valid">
                                         <svg class="h-5 w-5 text-green-500" viewBox="0 0 20 20" fill="currentColor">
-                                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                            <path fill-rule="evenodd"
+                                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                                clip-rule="evenodd" />
                                         </svg>
                                     </div>
                                 </div>
@@ -85,9 +91,12 @@
                                         required
                                         class="form_input block w-full rounded-lg border-0 py-2.5 px-3 shadow-sm ring-1 ring-inset ring-slate-300 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6 transition-all"
                                         value="{{ old('last_name') }}">
-                                    <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none transition-opacity duration-300 opacity-0" id="ln-icon-valid">
+                                    <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none transition-opacity duration-300 opacity-0"
+                                        id="ln-icon-valid">
                                         <svg class="h-5 w-5 text-green-500" viewBox="0 0 20 20" fill="currentColor">
-                                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                            <path fill-rule="evenodd"
+                                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                                clip-rule="evenodd" />
                                         </svg>
                                     </div>
                                 </div>
@@ -101,14 +110,20 @@
                                 <input id="email" name="email" type="email" autocomplete="email" required
                                     class="form_input  block w-full rounded-lg border-0 py-2.5 px-3 shadow-sm ring-1 ring-inset ring-slate-300 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6 transition-all"
                                     value="{{ old('email') }}">
-                                <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none transition-opacity duration-300 opacity-0" id="email-icon-valid">
+                                <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none transition-opacity duration-300 opacity-0"
+                                    id="email-icon-valid">
                                     <svg class="h-5 w-5 text-green-500" viewBox="0 0 20 20" fill="currentColor">
-                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                        <path fill-rule="evenodd"
+                                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                            clip-rule="evenodd" />
                                     </svg>
                                 </div>
-                                <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none transition-opacity duration-300 opacity-0" id="email-icon-invalid">
+                                <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none transition-opacity duration-300 opacity-0"
+                                    id="email-icon-invalid">
                                     <svg class="h-5 w-5 text-red-500" viewBox="0 0 20 20" fill="currentColor">
-                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                                        <path fill-rule="evenodd"
+                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                                            clip-rule="evenodd" />
                                     </svg>
                                 </div>
                             </div>
@@ -122,47 +137,68 @@
                                 <input id="password" name="password" type="password" autocomplete="new-password"
                                     required
                                     class="form_input block w-full rounded-lg border-0 py-2.5 px-3 shadow-sm ring-1 ring-inset ring-slate-300 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6 transition-all">
-                                <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none transition-opacity duration-300 opacity-0" id="password-icon-valid">
+                                <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none transition-opacity duration-300 opacity-0"
+                                    id="password-icon-valid">
                                 </div>
                                 <!-- Strength Meter -->
                                 <div class="mt-2 h-1.5 w-full bg-slate-200 rounded-full overflow-hidden">
-                                    <div id="strength-bar" class="h-full bg-red-500 w-0 transition-all duration-300 ease-out"></div>
+                                    <div id="strength-bar"
+                                        class="h-full bg-red-500 w-0 transition-all duration-300 ease-out"></div>
                                 </div>
 
                                 <!-- Detailed Reqs -->
-                                <div class="mt-2 text-xs text-slate-500 grid grid-cols-2 gap-1" id="password_requirements">
-                                    <div id="req_length" class="flex items-center space-x-1 transition-colors"><span class="text-lg leading-none">•</span> <span>At least 8 chars</span></div>
-                                    <div id="req_uppercase" class="flex items-center space-x-1 transition-colors"><span class="text-lg leading-none">•</span> <span>One uppercase</span></div>
-                                    <div id="req_number" class="flex items-center space-x-1 transition-colors"><span class="text-lg leading-none">•</span> <span>One number</span></div>
-                                    <div id="req_special" class="flex items-center space-x-1 transition-colors"><span class="text-lg leading-none">•</span> <span>One special char</span></div>
+                                <div class="mt-2 text-xs text-slate-500 grid grid-cols-2 gap-1"
+                                    id="password_requirements">
+                                    <div id="req_length" class="flex items-center space-x-1 transition-colors"><span
+                                            class="text-lg leading-none">•</span> <span>At least 8 chars</span></div>
+                                    <div id="req_uppercase" class="flex items-center space-x-1 transition-colors"><span
+                                            class="text-lg leading-none">•</span> <span>One uppercase</span></div>
+                                    <div id="req_number" class="flex items-center space-x-1 transition-colors"><span
+                                            class="text-lg leading-none">•</span> <span>One number</span></div>
+                                    <div id="req_special" class="flex items-center space-x-1 transition-colors"><span
+                                            class="text-lg leading-none">•</span> <span>One special char</span></div>
                                 </div>
                             </div>
 
                             <div>
                                 <label for="password_confirmation"
-                                    class="form_input block text-sm font-medium leading-6 text-slate-900">Confirm Password</label>
+                                    class="form_input block text-sm font-medium leading-6 text-slate-900">Confirm
+                                    Password</label>
                                 <div class="mt-2 relative">
-                                    <input id="password_confirmation" name="password_confirmation" type="password" required
+                                    <input id="password_confirmation" name="password_confirmation" type="password"
+                                        required
                                         class="form_input block w-full rounded-lg border-0 py-2.5 px-3 shadow-sm ring-1 ring-inset ring-slate-300 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6 transition-all">
-                                    <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none transition-opacity duration-300 opacity-0" id="confirm-icon-valid">
+                                    <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none transition-opacity duration-300 opacity-0"
+                                        id="confirm-icon-valid">
                                         <svg class="h-5 w-5 text-green-500" viewBox="0 0 20 20" fill="currentColor">
-                                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                            <path fill-rule="evenodd"
+                                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                                clip-rule="evenodd" />
                                         </svg>
                                     </div>
-                                    <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none transition-opacity duration-300 opacity-0" id="confirm-icon-invalid">
+                                    <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none transition-opacity duration-300 opacity-0"
+                                        id="confirm-icon-invalid">
                                         <svg class="h-5 w-5 text-red-500" viewBox="0 0 20 20" fill="currentColor">
-                                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                                            <path fill-rule="evenodd"
+                                                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                                                clip-rule="evenodd" />
                                         </svg>
                                     </div>
                                 </div>
-                                <p class="mt-1 text-sm text-red-600 hidden" id="confirm-error">Passwords do not match.</p>
+                                <p class="mt-1 text-sm text-red-600 hidden" id="confirm-error">Passwords do not match.
+                                </p>
                             </div>
 
                             <div class="flex justify-center mt-10">
-                                <button type="submit" id="submit_btn" class="sign_in_button group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-all duration-200 shadow-md hover:shadow-lg transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed">
+                                <button type="submit" id="submit_btn"
+                                    class="sign_in_button group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-all duration-200 shadow-md hover:shadow-lg transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed">
                                     <span class="absolute left-0 inset-y-0 flex items-center pl-3">
-                                        <svg class="h-5 w-5 text-orange-500 group-hover:text-orange-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd" />
+                                        <svg class="h-5 w-5 text-white-500 group-hover:text-black-400"
+                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                            aria-hidden="true">
+                                            <path fill-rule="evenodd"
+                                                d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
+                                                clip-rule="evenodd" />
                                         </svg>
                                     </span>
                                     Create Account
@@ -171,7 +207,7 @@
                     </form>
 
                     <script>
-                        document.addEventListener('DOMContentLoaded', function() {
+                        document.addEventListener('DOMContentLoaded', function () {
                             const form = document.getElementById('registerForm');
                             const firstName = document.getElementById('first_name');
                             const lastName = document.getElementById('last_name');
@@ -249,7 +285,7 @@
 
 
                             // Password Check
-                            passwordInput.addEventListener('input', function() {
+                            passwordInput.addEventListener('input', function () {
                                 const val = passwordInput.value;
                                 let score = 0;
 
@@ -359,7 +395,7 @@
         <div class="relative hidden w-0 flex-1 lg:block">
             <!-- Image -->
             <img class="absolute inset-0 h-full w-full object-cover" src="{{ asset('images/background.png') }}"
-                alt="Library Books">
+                alt="Modern Library Architecture">
 
             <!-- Subtle overlay for better text contrast -->
             <div class="absolute inset-0 bg-black/20"></div>
