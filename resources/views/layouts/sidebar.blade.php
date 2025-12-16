@@ -80,12 +80,12 @@
         <!-- User Info -->
         <!-- User Info -->
         <div class="px-4 py-3 text-[#0f0701] text-sm flex items-center gap-3">
-            <div class="h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden shrink-0">
+            <div class="profile_admin h-10 w-10 rounded-full flex items-center justify-center overflow-hidden shrink-0">
                 @if(Auth::user()->profile_picture)
                     <img src="{{ asset('storage/' . Auth::user()->profile_picture) }}" alt="{{ Auth::user()->name }}"
                         class="h-full w-full object-cover">
                 @else
-                    <span class="font-bold text-gray-500">{{ substr(Auth::user()->name, 0, 1) }}</span>
+                    <span class="font-bold ">{{ substr(Auth::user()->name, 0, 1) }}</span>
                 @endif
             </div>
             <div>

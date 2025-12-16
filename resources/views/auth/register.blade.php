@@ -60,7 +60,7 @@
                                 <div class="mt-2">
                                     <input id="first_name" name="first_name" type="text" autocomplete="given-name"
                                         required
-                                        class="block w-full rounded-lg border-0 py-2.5 px-3 shadow-sm ring-1 ring-inset ring-slate-300 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 transition-all"
+                                        class="form_input block w-full rounded-lg border-0 py-2.5 px-3 shadow-sm ring-1 ring-inset ring-slate-300 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 transition-all"
                                         value="{{ old('first_name') }}">
                                 </div>
                             </div>
@@ -70,7 +70,7 @@
                                 <div class="mt-2">
                                     <input id="last_name" name="last_name" type="text" autocomplete="family-name"
                                         required
-                                        class="block w-full rounded-lg border-0 py-2.5 px-3 shadow-sm ring-1 ring-inset ring-slate-300 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 transition-all"
+                                        class="form_input block w-full rounded-lg border-0 py-2.5 px-3 shadow-sm ring-1 ring-inset ring-slate-300 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 transition-all"
                                         value="{{ old('last_name') }}">
                                 </div>
                             </div>
@@ -81,18 +81,18 @@
                                 address</label>
                             <div class="mt-2">
                                 <input id="email" name="email" type="email" autocomplete="email" required
-                                    class="block w-full rounded-lg border-0 py-2.5 px-3 shadow-sm ring-1 ring-inset ring-slate-300 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 transition-all"
+                                    class="form_input  block w-full rounded-lg border-0 py-2.5 px-3 shadow-sm ring-1 ring-inset ring-slate-300 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 transition-all"
                                     value="{{ old('email') }}">
                             </div>
                         </div>
 
                         <div>
                             <label for="password"
-                                class="block text-sm font-medium leading-6 text-slate-900">Password</label>
+                                class="form_input block text-sm font-medium leading-6 text-slate-900">Password</label>
                             <div class="mt-2">
                                 <input id="password" name="password" type="password" autocomplete="new-password"
                                     required
-                                    class="block w-full rounded-lg border-0 py-2.5 px-3 shadow-sm ring-1 ring-inset ring-slate-300 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 transition-all">
+                                    class="form_input block w-full rounded-lg border-0 py-2.5 px-3 shadow-sm ring-1 ring-inset ring-slate-300 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 transition-all">
                             </div>
                             <!-- Password Requirements Helper -->
                             <div class="mt-2 text-xs text-slate-500" id="password_requirements">
@@ -111,10 +111,10 @@
 
                         <div>
                             <label for="password_confirmation"
-                                class="block text-sm font-medium leading-6 text-slate-900">Confirm Password</label>
+                                class="form_input block text-sm font-medium leading-6 text-slate-900">Confirm Password</label>
                             <div class="mt-2">
                                 <input id="password_confirmation" name="password_confirmation" type="password" required
-                                    class="block w-full rounded-lg border-0 py-2.5 px-3 shadow-sm ring-1 ring-inset ring-slate-300 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 transition-all">
+                                    class="form_input block w-full rounded-lg border-0 py-2.5 px-3 shadow-sm ring-1 ring-inset ring-slate-300 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 transition-all">
                             </div>
                         </div>
 

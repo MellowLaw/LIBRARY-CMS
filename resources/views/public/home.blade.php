@@ -32,11 +32,11 @@
     <!-- News & Updates Section -->
     <section id="News" class="home-news-section">
         <div class="home-news-content">
-            <h4 class="title_card fade-in-up">
+            <h4 class="title_card fade-in-up text-center">
                 Latest <span class="italic" style="color: #ec3412;">Updates.</span>
             </h4>
 
-            <p class="home-section-subtitle">Stay informed with the latest announcements.</p>
+            <p class="home-section-subtitle text-center">Stay informed with the latest announcements.</p>
 
             @if($news->isEmpty())
                 <div class="text-center py-12 text-gray-500">
@@ -44,19 +44,19 @@
                 </div>
             @endif
 
-            <div class="home-grid-3">
+            <div class="flex flex-wrap justify-center gap-8">
                 @foreach($news as $article)
-                    <a href="{{ route('public.news.show', $article->slug) }}" class="home-card group">
+                    <a href="{{ route('public.news.show', $article->slug) }}" class="home-card group w-full sm:w-96 flex flex-col h-full hover:-translate-y-1 hover:shadow-xl transition-all duration-300">
                         @if($article->image_path)
-                            <img src="{{ '/storage/' . $article->image_path }}" alt="{{ $article->title }}" class="home-card-image">
+                            <img src="{{ '/storage/' . $article->image_path }}" alt="{{ $article->title }}" class="home-card-image w-full h-48 object-cover rounded-xl mb-4">
                         @endif
-                        <div>
-                            <span class="home-card-tag">News</span>
-                            <h3 class="home-card-title">{{ $article->title }}</h3>
-                            <p class="home-card-text">
+                        <div class="flex flex-col flex-1">
+                            <span class="home-card-tag inline-block px-3 py-1 bg-red-50 text-red-600 rounded-full text-xs font-bold uppercase tracking-wider mb-2 self-start">News</span>
+                            <h3 class="home-card-title text-xl font-bold text-gray-900 mb-2 leading-tight group-hover:text-red-600 transition-colors">{{ $article->title }}</h3>
+                            <p class="home-card-text text-gray-500 text-sm mb-4 line-clamp-3">
                                 {{ Str::limit($article->excerpt ?: strip_tags($article->content), 100) }}
                             </p>
-                            <span class="home-card-link">
+                            <span class="home-card-link mt-auto flex items-center gap-1 text-red-600 font-medium text-sm transition-gap">
                                 Read More <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
                             </span>
                         </div>
@@ -75,11 +75,11 @@
     <!-- Staff Section -->
     <section id="staff" class="home-staff-section">
         <div class="home-staff-content">
-            <h4 class="title_card fade-in-up">
+            <h4 class="title_card fade-in-up text-center">
                 Meet our <span class="italic" style="color: #ec3412;">Team.</span>
             </h4>
 
-            <p class="home-section-subtitle">Dedicated professionals committed to serving our community.</p>
+            <p class="home-section-subtitle text-center">Dedicated professionals committed to serving our community.</p>
 
             @if($staff->isEmpty())
                 <div class="text-center py-12 border-2 border-dashed border-slate-200 rounded-xl">
@@ -87,9 +87,9 @@
                 </div>
             @endif
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="flex flex-wrap justify-center gap-6">
                 @foreach($staff as $member)
-                    <div class="home-card text-center items-center">
+                    <div class="home-card text-center items-center w-full sm:w-72">
                          <div class="w-24 h-24 mb-6 relative mx-auto">
                             @if($member->profile_image)
                                 <img src="{{ asset('storage/' . $member->profile_image) }}" class="w-full h-full object-cover rounded-full shadow-md" alt="{{ $member->name }}">

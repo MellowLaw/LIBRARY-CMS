@@ -5,6 +5,23 @@
 
 @section('content')
 <div class="space-y-6">
+
+<div class="mb-8 flex items-center justify-between">
+        <div>
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-gray-900 text-white text-xs font-semibold uppercase tracking-wider rounded-full mb-2">
+                <span class="w-1.5 h-1.5 bg-green-400 rounded-full"></span>
+                Admin Panel
+            </span>
+            <h2 class="text-4xl font-bold text-gray-900">News</h2>
+        </div>
+        <form method="POST" action="{{ route('logout') }}" onsubmit="event.preventDefault(); openLogoutModal(this);">
+            @csrf
+            <button type="submit" class="sign_out_btn text-sm text-red-600 hover:text-red-700 font-medium transition-smooth bg-red-50 hover:bg-red-100 px-4 py-2 rounded-lg">
+                Sign Out
+            </button>
+        </form>
+    </div>
+
     <!-- Header -->
     <div class="flex items-center justify-between">
         <form action="{{ route('news.index') }}" method="GET" class="relative">

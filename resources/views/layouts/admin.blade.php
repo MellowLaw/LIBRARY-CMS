@@ -83,9 +83,7 @@
                 @yield('content')
             </div>
 
-            <div class="mt-12 border-t border-gray-200 pt-6">
-                @include('layouts.footer')
-            </div>
+            <!-- Footer Removed -->
         </main>
     </div>
 

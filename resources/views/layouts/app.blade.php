@@ -153,8 +153,8 @@
 
     <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
         <div
-            class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg border border-gray-100">
-            <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+            class="relative transform overflow-hidden rounded-[50px] bg-[#efeae4] text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg border border-[#e5dcd6]">
+            <div class="bg-[#efeae4] px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                 <div class="sm:flex sm:items-start">
                     <div
                         class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
@@ -172,7 +172,7 @@
                     </div>
                 </div>
             </div>
-            <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+            <div class="bg-[#efeae4] px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                 <button type="button" onclick="confirmLogout()"
                     class="inline-flex w-full justify-center rounded-md bg-[#ec3412] px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-700 sm:ml-3 sm:w-auto transition-colors">Yes,
                     Sign Out</button>

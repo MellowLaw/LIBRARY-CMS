@@ -4,6 +4,22 @@
 @section('page-subtitle', 'Manage library resource links')
 
 @section('content')
+<div class="mb-8 flex items-center justify-between">
+        <div>
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-gray-900 text-white text-xs font-semibold uppercase tracking-wider rounded-full mb-2">
+                <span class="w-1.5 h-1.5 bg-green-400 rounded-full"></span>
+                Admin Panel
+            </span>
+            <h2 class="text-4xl font-bold text-gray-900">Resources</h2>
+        </div>
+        <form method="POST" action="{{ route('logout') }}" onsubmit="event.preventDefault(); openLogoutModal(this);">
+            @csrf
+            <button type="submit" class="sign_out_btn text-sm text-red-600 hover:text-red-700 font-medium transition-smooth bg-red-50 hover:bg-red-100 px-4 py-2 rounded-lg">
+                Sign Out
+            </button>
+        </form>
+    </div>
+
     <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
         <div class="p-6 border-b border-gray-200 flex items-center justify-between">
             <h3 class="text-lg font-bold text-gray-900">Resource Links</h3>

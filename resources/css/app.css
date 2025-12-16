@@ -172,16 +172,16 @@
 }
 
 ::-webkit-scrollbar-track {
-    background: #f1f5f9;
+    background: #efeae4;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #cbd5e1;
+    background: #ec3412;
     border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #94a3b8;
+    background: #0f0701;
 }
 
 
@@ -289,9 +289,19 @@
 
 }
 
+.profile_admin {
+    background-color: #ec3412;
+    color: #efeae4;
+}
+
 .bg_color_main {
     background-color: #f8fafc;
     /* Very light slate */
+}
+
+.profile_admin {
+    background-color: #ec3412;
+    color: #efeae4;
 }
 
 .sign_out_btn {

@@ -245,3 +245,10 @@ h1, h2, h3, h4, h5, h6 {
     margin: 0 auto 3rem;
     font-size: 1.125rem;
 }
+
+.home_image{
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 50%;
+}

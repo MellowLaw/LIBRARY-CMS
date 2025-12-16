@@ -4,19 +4,38 @@
 @section('page-subtitle', 'Manage library staff profiles')
 
 @section('content')
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+    <div class="mb-8 flex items-center justify-between">
+        <div>
+            <span
+                class="inline-flex items-center gap-1.5 px-3 py-1 bg-gray-900 text-white text-xs font-semibold uppercase tracking-wider rounded-full mb-2">
+                <span class="w-1.5 h-1.5 bg-green-400 rounded-full"></span>
+                Admin Panel
+            </span>
+            <h2 class="text-4xl font-bold text-gray-900">Staff Members</h2>
+        </div>
+        <form method="POST" action="{{ route('logout') }}" onsubmit="event.preventDefault(); openLogoutModal(this);">
+            @csrf
+            <button type="submit"
+                class="sign_out_btn text-sm text-red-600 hover:text-red-700 font-medium transition-smooth bg-red-50 hover:bg-red-100 px-4 py-2 rounded-lg">
+                Sign Out
+            </button>
+        </form>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <!-- Add New Staff -->
         <a href="{{ route('staff.create') }}" class="group">
             <div
-                class="h-full bg-gradient-to-br from-emerald-50 to-emerald-100 border-2 border-dashed border-emerald-300 rounded-xl p-6 flex flex-col items-center justify-center hover:shadow-md transition-smooth cursor-pointer">
+                class="h-full bg-gradient-to-br from-emerald-50 to-emerald-100 border-2 border-dashed border-emerald-300 rounded-xl p-4 flex flex-col items-center justify-center hover:shadow-md transition-smooth cursor-pointer min-h-[250px]">
                 <div
                     class="w-12 h-12 bg-emerald-200 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
                     <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                     </svg>
                 </div>
-                <p class="mt-3 font-semibold text-emerald-900">Add Staff Member</p>
-                <p class="text-xs text-emerald-700 mt-1">Create a new staff profile</p>
+                <p class="mt-3 font-semibold text-emerald-900">Add Staff</p>
+                <p class="text-xs text-emerald-700 mt-1">New profile</p>
             </div>
         </a>
 
@@ -24,24 +43,24 @@
         @forelse($staff as $member)
             <div class="group">
                 <div
-                    class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-smooth">
+                    class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-smooth h-full flex flex-col">
                     <!-- Header with Avatar -->
                     <!-- Content -->
-                    <div class="px-6 py-6 pt-8 flex flex-col items-center text-center">
-                        <div class="relative mb-4">
+                    <div class="p-4 flex flex-col items-center text-center flex-1">
+                        <div class="relative mb-3">
                             @if($member->profile_image)
                                 <img src="{{ asset('storage/' . $member->profile_image) }}" alt="{{ $member->name }}"
-                                    class="w-20 h-20 rounded-full border-4 border-gray-100 object-cover shadow-sm bg-white">
+                                    class="w-24 h-24 rounded-full border-4 border-gray-50 object-cover shadow-sm bg-white">
                             @else
                                 <div
-                                    class="w-20 h-20 bg-gradient-to-br from-purple-400 to-pink-600 rounded-full flex items-center justify-center text-white text-2xl font-bold border-4 border-gray-100 shadow-sm">
+                                    class="w-24 h-24 bg-gradient-to-br from-purple-400 to-pink-600 rounded-full flex items-center justify-center text-white text-3xl font-bold border-4 border-gray-50 shadow-sm">
                                     {{ substr($member->name, 0, 1) }}
                                 </div>
                             @endif
                         </div>
 
                         <!-- Content -->
-                        <div class="p-4 pt-12">
+                        <div class="w-full">
                             <h3 class="font-bold text-gray-900">{{ $member->name }}</h3>
                             <p class="text-sm text-emerald-600 font-medium">{{ $member->position }}</p>
 
