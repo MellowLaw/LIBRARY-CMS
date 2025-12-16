@@ -59,7 +59,10 @@ class NewsController extends Controller
 
         $imagePath = null;
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('news', 'public');
+            $file = $request->file('image');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(resource_path('img'), $filename);
+            $imagePath = 'resources/img/' . $filename;
         }
 
         $news = News::create([
@@ -117,9 +120,20 @@ class NewsController extends Controller
         $imagePath = $news->image_path;
         if ($request->hasFile('image')) {
             if ($news->image_path) {
-                Storage::disk('public')->delete($news->image_path);
+                if (Str::startsWith($news->image_path, 'resources/img/')) {
+                    $oldPath = base_path($news->image_path);
+                    if (file_exists($oldPath)) {
+                        @unlink($oldPath);
+                    }
+                } elseif (Storage::disk('public')->exists($news->image_path)) {
+                    Storage::disk('public')->delete($news->image_path);
+                }
             }
-            $imagePath = $request->file('image')->store('news', 'public');
+
+            $file = $request->file('image');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(resource_path('img'), $filename);
+            $imagePath = 'resources/img/' . $filename;
         }
 
         $news->update([

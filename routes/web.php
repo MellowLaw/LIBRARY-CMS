@@ -27,13 +27,18 @@ Route::get('/storage/{path}', function (string $path) {
         abort(404);
     }
 
-    $mimeType = $disk->mimeType($path) ?? 'application/octet-stream';
-    $contents = $disk->get($path);
-
-    return response($contents, 200)
-        ->header('Content-Type', $mimeType)
-        ->header('Cache-Control', 'public, max-age=31536000');
+    return response()->file($disk->path($path), [
+        'Cache-Control' => 'public, max-age=31536000'
+    ]);
 })->where('path', '.*');
+
+Route::get('/resources/img/{filename}', function ($filename) {
+    $path = resource_path('img/' . $filename);
+    if (!file_exists($path)) {
+        abort(404);
+    }
+    return response()->file($path);
+});
 
 
 // Public Viewing Routes
