@@ -351,3 +351,19 @@
     letter-spacing: -1px;
     font-weight: 400px;
 }
+/* Custom Animation classes added by Antigravity */
+@keyframes bounce-subtle {
+    0%, 100% { transform: translateY(-5%); animation-timing-function: cubic-bezier(0.8, 0, 1, 1); }
+    50% { transform: translateY(0); animation-timing-function: cubic-bezier(0, 0, 0.2, 1); }
+}
+
+.animate-bounce-subtle {
+    animation: bounce-subtle 1.5s infinite;
+}
+
+.params-transition {
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
+}
+

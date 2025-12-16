@@ -3,7 +3,7 @@
 @section('title', 'News & Announcements')
 
 @section('content')
-<div class="bg-[#efeae4] py-12">
+<div class="bg-[#efeae4] py-12 page-animate opacity-0 transition-opacity duration-300 ease-in-out">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16">
             <h4 class="title_card fade-in-up">
@@ -15,7 +15,7 @@
         <div class="flex flex-wrap justify-center gap-8">
             @forelse($news as $article)
             <a href="{{ route('public.news.show', $article->slug) }}"
-                class="home-card group w-full sm:w-96 flex flex-col h-full hover:-translate-y-1 hover:shadow-xl transition-all duration-300">
+                class="home-card animate-link group w-full sm:w-96 flex flex-col h-full hover:-translate-y-1 hover:shadow-xl transition-all duration-300">
                 @if($article->image_path)
                 <img src="{{ str_starts_with($article->image_path, 'resources/img') ? url($article->image_path) : '/storage/' . $article->image_path }}" alt="{{ $article->title }}"
                     class="home-card-image w-full h-48 object-cover rounded-xl mb-4">
@@ -63,4 +63,42 @@
         </div>
     </div>
 </div>
+
+<script>
+    // Handle page entry transition
+    window.addEventListener('pageshow', (event) => {
+        const pageContent = document.querySelector('.page-animate');
+        if (pageContent) {
+            // Use requestAnimationFrame to ensure the transition triggers
+            requestAnimationFrame(() => {
+                pageContent.classList.remove('opacity-0');
+            });
+        }
+    });
+
+    // Handle page exit transition
+    document.addEventListener('DOMContentLoaded', () => {
+        const links = document.querySelectorAll('.animate-link');
+        const pageContent = document.querySelector('.page-animate');
+
+        links.forEach(link => {
+            link.addEventListener('click', (e) => {
+                // Only animate if it's a normal left click without modifiers
+                if (e.button === 0 && !e.ctrlKey && !e.shiftKey && !e.altKey && !e.metaKey) {
+                    e.preventDefault();
+                    const href = link.getAttribute('href');
+
+                    if (pageContent) {
+                        pageContent.classList.add('opacity-0');
+                        setTimeout(() => {
+                            window.location.href = href;
+                        }, 300); // Maintained to match duration-300
+                    } else {
+                        window.location.href = href;
+                    }
+                }
+            });
+        });
+    });
+</script>
 @endsection

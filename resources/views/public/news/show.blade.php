@@ -3,7 +3,7 @@
 @section('title', $article->title)
 
 @section('content')
-<div class="bg-gray-50 py-12">
+<div class="bg-gray-50 py-12 page-animate opacity-0 transition-opacity duration-300 ease-in-out">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <article class="bg-white rounded-2xl shadow-sm overflow-hidden">
             @if($article->image_path)
@@ -45,7 +45,7 @@
 
                 <div class="mt-8 pt-8 border-t border-gray-100">
                     <a href="{{ route('public.news.index') }}"
-                        class="inline-flex items-center text-emerald-600 hover:text-emerald-700 font-medium">
+                        class="inline-flex items-center text-emerald-600 hover:text-emerald-700 font-medium animate-link">
                         <svg class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -57,4 +57,40 @@
         </article>
     </div>
 </div>
+
+<script>
+    // Handle page entry transition
+    window.addEventListener('pageshow', (event) => {
+        const pageContent = document.querySelector('.page-animate');
+        if (pageContent) {
+            requestAnimationFrame(() => {
+                pageContent.classList.remove('opacity-0');
+            });
+        }
+    });
+
+    // Handle page exit transition
+    document.addEventListener('DOMContentLoaded', () => {
+        const links = document.querySelectorAll('.animate-link');
+        const pageContent = document.querySelector('.page-animate');
+
+        links.forEach(link => {
+            link.addEventListener('click', (e) => {
+                if (e.button === 0 && !e.ctrlKey && !e.shiftKey && !e.altKey && !e.metaKey) {
+                    e.preventDefault();
+                    const href = link.getAttribute('href');
+
+                    if (pageContent) {
+                        pageContent.classList.add('opacity-0');
+                        setTimeout(() => {
+                            window.location.href = href;
+                        }, 300);
+                    } else {
+                        window.location.href = href;
+                    }
+                }
+            });
+        });
+    });
+</script>
 @endsection
