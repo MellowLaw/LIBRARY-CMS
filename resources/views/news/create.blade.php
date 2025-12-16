@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('page-title', 'Create News')
 @section('page-subtitle', 'Share updates and announcements')
@@ -170,8 +170,8 @@
                     menubar: false,
                     branding: false,
                     promotion: false,
-                    setup: function(editor) {
-                        editor.on('change keyup', function() {
+                    setup: function (editor) {
+                        editor.on('change keyup', function () {
                             editor.save();
                         });
                     }

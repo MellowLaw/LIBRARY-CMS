@@ -1,6 +1,9 @@
 @import "tailwindcss";
+@import "./home.css";
 
-[x-cloak] { display: none !important; }
+[x-cloak] {
+    display: none !important;
+}
 
 /* Custom transition utility */
 @layer utilities {
@@ -66,8 +69,15 @@
 
 /* Custom animations */
 @keyframes fade-in-out {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.8; }
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.8;
+    }
 }
 
 @keyframes slide-in-right {
@@ -75,6 +85,7 @@
         transform: translateX(100%);
         opacity: 0;
     }
+
     to {
         transform: translateX(0);
         opacity: 1;
@@ -171,4 +182,162 @@
 
 ::-webkit-scrollbar-thumb:hover {
     background: #94a3b8;
+}
+
+
+.hover_nav:hover {
+    color: #ec3412;
+    transform: scale(1.1);
+}
+
+.accent {
+    color: #ec3412;
+}
+
+.hero_section {
+    position: relative;
+    padding: 100px 0;
+    margin: 0;
+}
+
+.navbar_button {
+    color: #ec3412;
+    font-weight: bold;
+    transition: all 0.3s linear;
+
+}
+
+.navbar_button:hover {
+    color: #1e1e1e;
+    font-weight: bold;
+    transform: scale(1.1);
+}
+
+.navbar_button_login {
+    color: white;
+    background: #ec3412;
+    padding: 10px 50px;
+    border-radius: 50px;
+    transition: all 0.3s linear;
+    margin-left: 10px;
+    border: 2px solid transparent;
+    /* Reserve space */
+
+
+}
+
+.navbar_button_login:hover {
+    color: #ec3412;
+    background: #ffffff;
+    border: 2px solid #ec3412;
+}
+
+.sign_in_button {
+    color: #efeae4;
+    background: #ec3412;
+    font-weight: bold;
+    transition: all 0.3s linear;
+    text-align: center;
+    padding: 10px 20px;
+    border-radius: 50px;
+    margin-top: 2px;
+    border: 2px solid transparent;
+    /* Reserve space */
+}
+
+.sign_in_button:hover {
+    color: #ec3412;
+    background: #ffffff;
+    border: 2px solid #ec3412;
+}
+
+
+.form_input {
+    border-radius: 50px;
+}
+
+.login_page {
+    background: #efeae4;
+}
+
+.newsSection {
+    background: #ff8c00;
+    padding: 100px;
+}
+
+#news {
+    padding: 100px;
+    background: #ec3412;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 0;
+
+    /* Transparent gradient background */
+    background: linear-gradient(to bottom, rgb(255, 255, 255), rgba(255, 255, 255, 0));
+
+}
+
+.footer_section,
+.footer_content {
+    background-color: #fffbf6;
+
+}
+
+.bg_color_main {
+    background-color: #f8fafc;
+    /* Very light slate */
+}
+
+.sign_out_btn {
+    color: #efeae4;
+    background: #1e1e1e;
+    padding: 10px 25px;
+    border-radius: 50px;
+    font-weight: bold;
+    transition: all 0.3s linear;
+}
+
+.sign_out_btn:hover {
+    color: #efeae4;
+    background: #ff2600;
+    transition: all 0.3s linear;
+    transform: scale(1.1);
+}
+
+.circle_profile {
+    color: #efeae4;
+    background: #1e1e1e;
+}
+
+.dashboard_button {
+    color: #efeae4;
+    background: #ec3412;
+    padding: 2px 13px;
+    border-radius: 50px;
+    font-weight: bold;
+    transition: all 0.3s linear;
+    border: 2px solid transparent;
+
+}
+
+.dashboard_button:hover {
+    color: #ec3412;
+    background: #efeae4;
+    padding: 2px 13px;
+    border-radius: 50px;
+    font-weight: bold;
+    transition: all 0.3s linear;
+    border: 2px solid #ec3412;
+}
+
+.dashboard_name {
+    font-size: 1.2rem;
+    letter-spacing: -1px;
+    font-weight: 400px;
 }

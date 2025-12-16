@@ -43,7 +43,7 @@ class DefaultMenuSeeder extends Seeder
                 'label' => 'Resources',
                 'url' => '/public/resources',
                 'display_order' => 4,
-                'is_visible' => true,
+                'is_visible' => false, // Hidden from public menu
             ],
             [
                 'name' => 'books',

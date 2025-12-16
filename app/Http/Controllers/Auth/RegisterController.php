@@ -28,7 +28,7 @@ class RegisterController extends Controller
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'password' => ['required', 'confirmed', Rules\Password::min(8)->mixedCase()->numbers()->symbols()],
         ]);
 
         $user = User::create([
@@ -45,6 +45,6 @@ class RegisterController extends Controller
 
         Auth::login($user);
 
-        return redirect()->route('public.home')->with('success', 'Registration successful! Welcome to our library.');
+        return redirect()->route('register.success');
     }
 }

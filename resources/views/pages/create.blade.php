@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('page-title', 'Create Page')
 @section('page-subtitle', 'Add a new page to your library website')

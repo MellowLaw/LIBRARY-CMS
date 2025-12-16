@@ -31,17 +31,17 @@
         <div
             class="flex flex-1 flex-col justify-center px-4 py-12 sm:px-6 lg:flex-none lg:px-20 xl:px-24 bg-white z-10">
             <div class="mx-auto w-full max-w-sm lg:w-96">
-                <div>
-                    <div class="flex items-center gap-3">
-                        <div
-                            class="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center text-white shadow-indigo-200 shadow-lg">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253">
-                                </path>
-                            </svg>
-                        </div>
-                        <span class="font-bold text-2xl tracking-tight text-slate-900">ModernLib</span>
+                <div class="sm:mx-auto sm:w-full sm:max-w-md mb-6">
+                    <a href="{{ route('public.home') }}"
+                        class="inline-flex items-center text-sm font-medium text-gray-500 hover:text-primary-accent transition-smooth mb-6">
+                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                        </svg>
+                        Back to Home
+                    </a>
+                    <div class="flex justify-center mb-2">
+                        <img src="{{ asset('assets/main-logo.png') }}" alt="AddLib Logo" class="h-16 w-auto">
                     </div>
                     <h2 class="mt-8 text-3xl font-bold tracking-tight text-slate-900">Create an account</h2>
                     <p class="mt-2 text-sm text-slate-600">
@@ -49,16 +49,30 @@
                     </p>
                 </div>
 
+
                 <div class="mt-10">
                     <form action="{{ route('register') }}" method="POST" class="space-y-6">
                         @csrf
-                        <div>
-                            <label for="name" class="block text-sm font-medium leading-6 text-slate-900">Full
-                                Name</label>
-                            <div class="mt-2">
-                                <input id="name" name="name" type="text" autocomplete="name" required
-                                    class="block w-full rounded-lg border-0 py-2.5 px-3 shadow-sm ring-1 ring-inset ring-slate-300 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 transition-all"
-                                    value="{{ old('name') }}">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label for="first_name" class="block text-sm font-medium leading-6 text-slate-900">First
+                                    Name</label>
+                                <div class="mt-2">
+                                    <input id="first_name" name="first_name" type="text" autocomplete="given-name"
+                                        required
+                                        class="block w-full rounded-lg border-0 py-2.5 px-3 shadow-sm ring-1 ring-inset ring-slate-300 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 transition-all"
+                                        value="{{ old('first_name') }}">
+                                </div>
+                            </div>
+                            <div>
+                                <label for="last_name" class="block text-sm font-medium leading-6 text-slate-900">Last
+                                    Name</label>
+                                <div class="mt-2">
+                                    <input id="last_name" name="last_name" type="text" autocomplete="family-name"
+                                        required
+                                        class="block w-full rounded-lg border-0 py-2.5 px-3 shadow-sm ring-1 ring-inset ring-slate-300 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 transition-all"
+                                        value="{{ old('last_name') }}">
+                                </div>
                             </div>
                         </div>
 
@@ -80,6 +94,19 @@
                                     required
                                     class="block w-full rounded-lg border-0 py-2.5 px-3 shadow-sm ring-1 ring-inset ring-slate-300 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 transition-all">
                             </div>
+                            <!-- Password Requirements Helper -->
+                            <div class="mt-2 text-xs text-slate-500" id="password_requirements">
+                                <p class="mb-1">Password must be at least 8 characters long and include:</p>
+                                <ul class="list-disc pl-5 space-y-0.5">
+                                    <li id="req_length" class="text-slate-500 transition-colors">At least 8 characters
+                                    </li>
+                                    <li id="req_uppercase" class="text-slate-500 transition-colors">One uppercase letter
+                                    </li>
+                                    <li id="req_number" class="text-slate-500 transition-colors">One number</li>
+                                    <li id="req_special" class="text-slate-500 transition-colors">One special character
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
 
                         <div>
@@ -91,12 +118,64 @@
                             </div>
                         </div>
 
-                        <div>
-                            <button type="submit"
-                                class="flex w-full justify-center rounded-lg bg-indigo-600 px-3 py-2.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 transition-all hover:shadow-lg hover:-translate-y-0.5">Create
+                        <div class="flex justify-center">
+                            <button type="submit" id="submit_btn" class="sign_in_button">Create
                                 Account</button>
                         </div>
                     </form>
+
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function () {
+                            const passwordInput = document.getElementById('password');
+                            const reqLength = document.getElementById('req_length');
+                            const reqUppercase = document.getElementById('req_uppercase');
+                            const reqNumber = document.getElementById('req_number');
+                            const reqSpecial = document.getElementById('req_special');
+
+                            passwordInput.addEventListener('input', function () {
+                                const val = passwordInput.value;
+
+                                // Length Check
+                                if (val.length >= 8) {
+                                    valid(reqLength);
+                                } else {
+                                    invalid(reqLength);
+                                }
+
+                                // Uppercase Check
+                                if (/[A-Z]/.test(val)) {
+                                    valid(reqUppercase);
+                                } else {
+                                    invalid(reqUppercase);
+                                }
+
+                                // Number Check
+                                if (/[0-9]/.test(val)) {
+                                    valid(reqNumber);
+                                } else {
+                                    invalid(reqNumber);
+                                }
+
+                                // Special Char Check
+                                if (/[!@#$%^&*(),.?":{}|<>]/.test(val)) {
+                                    valid(reqSpecial);
+                                } else {
+                                    invalid(reqSpecial);
+                                }
+                            });
+
+                            function valid(el) {
+                                el.classList.remove('text-slate-500');
+                                el.classList.add('text-green-600', 'font-medium');
+                                // Could add checkmark here if desired
+                            }
+
+                            function invalid(el) {
+                                el.classList.remove('text-green-600', 'font-medium');
+                                el.classList.add('text-slate-500');
+                            }
+                        });
+                    </script>
 
                     <p class="mt-10 text-center text-sm text-slate-500">
                         Already have an account?
@@ -115,19 +194,6 @@
 
             <!-- Subtle overlay for better text contrast -->
             <div class="absolute inset-0 bg-black/20"></div>
-
-            <!-- Quote Section - Bottom Middle -->
-            <div class="absolute bottom-0 left-0 right-0 pb-20 px-12 text-white z-20 text-center">
-                <blockquote class="max-w-2xl mx-auto space-y-6">
-                    <p class="text-5xl font-bold font-['Outfit'] leading-tight"
-                        style="text-shadow: 2px 4px 12px rgba(0, 0, 0, 0.5);">
-                        "There is no friend as loyal as a book."
-                    </p>
-                    <footer class="text-xl font-medium opacity-90" style="text-shadow: 1px 2px 8px rgba(0, 0, 0, 0.5);">
-                        – Ernest Hemingway
-                    </footer>
-                </blockquote>
-            </div>
         </div>
     </div>
 </body>

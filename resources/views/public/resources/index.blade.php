@@ -3,11 +3,12 @@
 @section('title', 'Resources')
 
 @section('content')
-    <div class="bg-[#F8F9FA] py-12">
+    <div class="bg-[#efeae4] py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
-                <h1 class="text-4xl font-bold text-slate-900">Library Resources</h1>
-                <div class="w-20 h-1 bg-indigo-600 mx-auto rounded-full mt-4"></div>
+                <h4 class="title_card fade-in-up">
+                    Library <span class="italic" style="color: #ec3412;">Resources.</span>
+                </h4>
                 <p class="mt-4 text-xl text-slate-500">Useful links and databases for your research.</p>
             </div>
 

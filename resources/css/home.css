@@ -1,0 +1,247 @@
+/* Modern Home Page CSS */
+
+:root {
+    --color-bg: #efeae4;
+    --color-text: #0f0701;
+    --color-accent: #ec3412;
+    --font-heading: 'Outfit', sans-serif;
+    --font-body: 'Plus Jakarta Sans', sans-serif;
+}
+
+body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-body);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+}
+
+/* --- Sections --- */
+
+.home-hero-section,
+.home-news-section,
+.home-staff-section,
+.home-resources-section {
+    width: 100%;
+    padding: 5rem 1rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.home-hero-content,
+.home-news-content,
+.home-staff-content,
+.home-resources-content {
+    max-width: 1280px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* --- Hero --- */
+.home-hero-section {
+    min-height: 80vh;
+    text-align: center;
+    background: radial-gradient(circle at 50% 50%, rgba(236, 52, 18, 0.05) 0%, transparent 60%);
+    overflow: hidden;
+}
+
+.home-hero-title {
+    font-size: 6rem;
+    font-weight: 700;
+    line-height: .9;
+    color: var(--color-text);
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.06em;
+    align-items: center;
+    text-align: center;
+}
+
+.title_card {
+    font-size: 4rem;
+    font-weight: 700;
+    line-height: .9;
+    color: var(--color-text);
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.06em;
+    align-items: center;
+    text-align: center;
+}
+
+.home-hero-subtitle {
+    font-size: 1.25rem;
+    color: #4b5563; /* Slate 600 equivalent */
+    max-width: 600px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.6;
+}
+
+/* --- Components --- */
+
+/* Buttons */
+.home-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 2rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-decoration: none;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.home-btn-primary {
+    background-color: var(--color-accent);
+    color: white;
+}
+
+.home-btn-primary:hover {
+    background-color: #c5200b; /* Darker accent */
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(236, 52, 18, 0.3);
+}
+
+.home-btn-secondary {
+    background-color: #ec3412;
+    color: white;
+    border-color: #ec3412;
+    border: 1px solid transparent; 
+
+}
+
+.home-btn-secondary:hover {
+    background-color: white;
+    color: var(--color-text);
+    border: 1px solid #e5e7eb;
+    transform: translateY(-2px);
+}
+
+/* Cards */
+.home-card {
+    background: white;
+    border-radius: 1rem;
+    padding: 2rem;
+    border: 1px solid rgba(0,0,0,0.05);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+    transition: all 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    text-align: left; /* Default left align for card content */
+}
+
+.home-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.01);
+    border-color: rgba(236, 52, 18, 0.2); /* Accent hint */
+}
+
+.home-card-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.home-card-tag {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background-color: rgba(236, 52, 18, 0.1);
+    color: var(--color-accent);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    border-radius: 9999px;
+    margin-bottom: 1rem;
+}
+
+.home-card-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: var(--color-text);
+    line-height: 1.3;
+}
+
+.home-card-text {
+    color: #6b7280;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    flex-grow: 1;
+    margin-bottom: 1.5rem;
+}
+
+.home-card-link {
+    color: var(--color-accent);
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: gap 0.2s ease;
+}
+
+.home-card-link:hover {
+    gap: 0.75rem;
+}
+
+/* Grids */
+.home-grid-3 {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    gap: 2rem;
+}
+
+@media (min-width: 768px) {
+    .home-grid-3 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 1024px) {
+    .home-grid-3 {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+/* Section specific overrides */
+.home-news-section {
+    background-color: white; /* Clean white for news */
+}
+
+.home-staff-section {
+    background-color: #f8fafc; /* Very light slate */
+}
+
+.home-resources-section {
+    background-color: #efeae4; /* Dark mode for contrast */
+    color: var(--color-text);
+}
+
+.home-news-section, .home-staff-section {
+    background-color: #efeae4; /* Dark mode for contrast */
+    color: var(--color-text);
+}
+
+.home-section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 1rem;
+    color: inherit;
+}
+
+.home-section-subtitle {
+    text-align: center;
+    color: inherit;
+    opacity: 0.7;
+    max-width: 600px;
+    margin: 0 auto 3rem;
+    font-size: 1.125rem;
+}

@@ -54,6 +54,9 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::middleware('throttle:register')->group(function () {
     Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
     Route::post('/register', [RegisterController::class, 'register'])->name('register.submit');
+    Route::get('/register/success', function () {
+        return view('auth.register-success');
+    })->name('register.success');
 });
 
 // Protected Administrative Routes

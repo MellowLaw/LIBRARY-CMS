@@ -1,9 +1,26 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('page-title', 'Library Dashboard')
 @section('page-subtitle', 'Overview of your library system')
 
 @section('content')
+    <!-- Admin Header -->
+    <div class="mb-8 flex items-center justify-between">
+        <div>
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-gray-900 text-white text-xs font-semibold uppercase tracking-wider rounded-full mb-2">
+                <span class="w-1.5 h-1.5 bg-green-400 rounded-full"></span>
+                Admin Panel
+            </span>
+            <h2 class="text-4xl font-bold text-gray-900">System Overview</h2>
+        </div>
+        <form method="POST" action="{{ route('logout') }}" onsubmit="event.preventDefault(); openLogoutModal(this);">
+            @csrf
+            <button type="submit" class="sign_out_btn text-sm text-red-600 hover:text-red-700 font-medium transition-smooth bg-red-50 hover:bg-red-100 px-4 py-2 rounded-lg">
+                Sign Out
+            </button>
+        </form>
+    </div>
+
     <!-- Stats Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
         <!-- Pages Card -->
@@ -39,20 +56,20 @@
         </div>
 
         <!-- Staff Card -->
-        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-smooth">
+        <a href="{{ route('staff.index') }}" class="block bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-smooth cursor-pointer group">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-sm text-gray-500 font-medium">Staff Members</p>
+                    <p class="text-sm text-gray-500 font-medium group-hover:text-purple-600 transition-colors">Staff Members</p>
                     <h3 class="text-3xl font-bold text-gray-900 mt-2">{{ $staffCount ?? 0 }}</h3>
                     <p class="text-xs text-purple-600 mt-2">Active Profiles</p>
                 </div>
-                <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center group-hover:bg-purple-200 transition-colors">
                     <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 8.048M12 4.354L9.172 7.172A4 4 0 0012.828 16.83m0-12.496h.028m9.026 9.142c-3.900 3.900-10.236 3.900-14.142 0M15.763 19.9a6.009 6.009 0 01-8.486 0m11.334-11.668c1.886-1.886 1.886-4.944 0-6.83-1.886-1.886-4.944-1.886-6.83 0m6.83 6.83l-6.83-6.83"></path>
                     </svg>
                 </div>
             </div>
-        </div>
+        </a>
     </div>
 
     <!-- Recent Activity & Quick Actions -->

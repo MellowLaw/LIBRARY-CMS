@@ -1,44 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.public')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $page->title }} - Library CMS</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    @if($page->meta_description)
-        <meta name="description" content="{{ $page->meta_description }}">
-    @endif
-    <style>
-        * {
-            font-family: 'Inter', sans-serif;
-        }
-    </style>
-</head>
+@section('title', $page->title . ' - AddLib')
 
-<body class="bg-gray-50">
-    <!-- Navigation -->
-    <nav class="bg-white shadow-sm border-b border-gray-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <div class="flex items-center">
-                    <a href="{{ route('public.home') }}" class="text-xl font-bold text-gray-900 hover:text-emerald-600">
-                        Library CMS
-                    </a>
-                </div>
-                <div class="flex items-center gap-4">
-                    @foreach($menus as $menu)
-                        <a href="{{ $menu->url ?? '#' }}" class="text-gray-700 hover:text-emerald-600 font-medium">
-                            {{ $menu->label }}
-                        </a>
-                    @endforeach
-                </div>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Main Content -->
+@section('content')
     <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <article class="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
             <header class="mb-8 pb-6 border-b border-gray-200">
@@ -66,13 +30,4 @@
             </a>
         </div>
     </main>
-
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white mt-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <p class="text-center text-gray-400">&copy; {{ date('Y') }} Library CMS. All rights reserved.</p>
-        </div>
-    </footer>
-</body>
-
-</html>
+@endsection

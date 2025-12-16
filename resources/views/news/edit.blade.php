@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('page-title', 'Edit News')
 @section('page-subtitle', 'Update announcement details')
@@ -99,7 +99,8 @@
                 <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
                     <h3 class="text-sm font-bold text-gray-900 mb-2">Featured Image</h3>
                     @if($news->image_path)
-                        <img src="{{ Storage::url($news->image_path) }}" alt="{{ $news->title }}" class="w-full h-40 object-cover rounded-lg mb-3">
+                        <img src="{{ Storage::url($news->image_path) }}" alt="{{ $news->title }}"
+                            class="w-full h-40 object-cover rounded-lg mb-3">
                     @endif
                     <input type="file" name="image" accept="image/*"
                         class="block w-full text-sm text-gray-700 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100">
@@ -182,8 +183,8 @@
                     menubar: false,
                     branding: false,
                     promotion: false,
-                    setup: function(editor) {
-                        editor.on('change keyup', function() {
+                    setup: function (editor) {
+                        editor.on('change keyup', function () {
                             editor.save();
                         });
                     }

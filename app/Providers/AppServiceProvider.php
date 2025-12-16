@@ -38,5 +38,16 @@ class AppServiceProvider extends ServiceProvider
         \Illuminate\Support\Facades\RateLimiter::for('register', function (\Illuminate\Http\Request $request) {
             return \Illuminate\Cache\RateLimiting\Limit::perMinute(5)->by($request->ip());
         });
+
+        if ($this->app->environment('production')) {
+            \Illuminate\Support\Facades\URL::forceScheme('https');
+        }
+
+        // Share menu with navbar
+        \Illuminate\Support\Facades\View::composer(['layouts.navbar'], function ($view) {
+            $view->with('navbarMenu', \App\Models\Menu::where('is_visible', true)
+                ->orderBy('display_order')
+                ->get());
+        });
     }
 }

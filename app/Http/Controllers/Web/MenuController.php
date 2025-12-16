@@ -49,8 +49,9 @@ class MenuController extends Controller
             'icon' => 'nullable|string|max:255',
             'parent_id' => 'nullable|exists:menus,id',
             'display_order' => 'nullable|integer|min:0',
-            'is_visible' => 'boolean',
         ]);
+
+        $validated['is_visible'] = $request->has('is_visible');
 
         Menu::create($validated);
 
@@ -92,8 +93,9 @@ class MenuController extends Controller
             'icon' => 'nullable|string|max:255',
             'parent_id' => 'nullable|exists:menus,id',
             'display_order' => 'nullable|integer|min:0',
-            'is_visible' => 'boolean',
         ]);
+
+        $validated['is_visible'] = $request->has('is_visible');
 
         $menu->update($validated);
 

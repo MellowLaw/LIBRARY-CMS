@@ -39,6 +39,14 @@ class LoginController extends Controller
         $credentials = $request->only('email', 'password');
         $remember = $request->filled('remember');
 
+        // Check if user exists first to provide specific feedback
+        $user = \App\Models\User::where('email', $request->email)->first();
+        if (!$user) {
+            throw ValidationException::withMessages([
+                'email' => ['Account does not exist. Please sign up first.'],
+            ]);
+        }
+
         if (Auth::attempt($credentials, $remember)) {
             \Illuminate\Support\Facades\RateLimiter::clear($this->throttleKey($request));
             $request->session()->regenerate();
