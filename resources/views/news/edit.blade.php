@@ -130,7 +130,55 @@
                     suffix: '.min',
                     height: 400,
                     plugins: 'link image code media table lists',
-                    toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright | bullist numlist | link image | code',
+                    toolbar: 'undo redo | blocks | fontfamily fontsize | bold italic underline | alignleft aligncenter alignright | bullist numlist | link image | removeformat | code',
+                    font_family_formats: 'Inter=Inter,sans-serif; Arial=arial,helvetica,sans-serif; Courier New=courier new,courier,monospace; Georgia=georgia,palatino,serif; Tahoma=tahoma,arial,helvetica,sans-serif; Times New Roman=times new roman,times,serif; Verdana=verdana,geneva,sans-serif',
+                    font_size_formats: '12px 14px 16px 18px 20px 24px 30px 36px 48px',
+                    content_style: 'body { font-family: Inter, sans-serif; font-size: 16px; }',
+                    image_advtab: true,
+                    image_caption: true,
+                    image_dimensions: true,
+                    automatic_uploads: true,
+                    images_upload_credentials: true,
+                    images_upload_handler: function (blobInfo, progress) {
+                        return new Promise(function (resolve, reject) {
+                            const xhr = new XMLHttpRequest();
+                            xhr.open('POST', '{{ url('/news/editor-upload') }}');
+                            xhr.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+                            xhr.upload.onprogress = function (e) {
+                                progress(e.loaded / e.total * 100);
+                            };
+
+                            xhr.onload = function () {
+                                if (xhr.status < 200 || xhr.status >= 300) {
+                                    reject('HTTP Error: ' + xhr.status);
+                                    return;
+                                }
+
+                                let json;
+                                try {
+                                    json = JSON.parse(xhr.responseText);
+                                } catch (e) {
+                                    reject('Invalid JSON: ' + xhr.responseText);
+                                    return;
+                                }
+
+                                if (!json || typeof json.location !== 'string') {
+                                    reject('Invalid response: ' + xhr.responseText);
+                                    return;
+                                }
+
+                                resolve(json.location);
+                            };
+
+                            xhr.onerror = function () {
+                                reject('Image upload failed due to a XHR transport error.');
+                            };
+
+                            const formData = new FormData();
+                            formData.append('file', blobInfo.blob(), blobInfo.filename());
+                            xhr.send(formData);
+                        });
+                    },
                     menubar: false,
                     branding: false,
                     promotion: false,

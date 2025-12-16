@@ -14,7 +14,7 @@
                 @forelse($news as $article)
                     <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
                         @if($article->image_path)
-                            <img class="h-48 w-full object-cover" src="{{ Storage::url($article->image_path) }}"
+                            <img class="h-48 w-full object-cover" src="{{ '/storage/' . $article->image_path }}"
                                 alt="{{ $article->title }}">
                         @else
                             <div class="h-48 w-full bg-emerald-100 flex items-center justify-center">

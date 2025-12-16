@@ -166,11 +166,11 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 @if($news->isNotEmpty())
                     @foreach($news as $article)
-                        <article
+                        <a href="{{ route('public.news.show', $article->slug) }}"
                             class="group bg-white rounded-2xl border border-slate-100 p-8 hover-lift cursor-pointer h-full flex flex-col">
                             @if($article->image_path)
                                 <div class="mb-6 overflow-hidden rounded-xl">
-                                    <img src="{{ Storage::url($article->image_path) }}" alt="{{ $article->title }}"
+                                    <img src="{{ '/storage/' . $article->image_path }}" alt="{{ $article->title }}"
                                         class="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300">
                                 </div>
                             @endif
@@ -183,9 +183,7 @@
                                 </span>
                             </div>
                             <h3 class="text-2xl font-bold text-slate-900 mb-3 group-hover:text-indigo-600 transition-colors">
-                                <a href="{{ route('public.news.show', $article->slug) }}">
-                                    {{ $article->title }}
-                                </a>
+                                {{ $article->title }}
                             </h3>
                             <p class="text-slate-500 mb-6 flex-grow leading-relaxed">
                                 {{ Str::limit($article->excerpt ?: strip_tags($article->content), 120) }}
@@ -197,7 +195,7 @@
                                         d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
                                 </svg>
                             </div>
-                        </article>
+                        </a>
                     @endforeach
                 @else
                     @foreach($pages as $page)

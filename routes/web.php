@@ -8,6 +8,7 @@ use App\Http\Controllers\Web\ResourceController;
 use App\Http\Controllers\Public\PageController as PublicPageController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Web\LibraryController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -15,6 +16,24 @@ use App\Http\Controllers\Auth\RegisterController;
 // Public routes
 // Public routes
 Route::get('/', [PublicPageController::class, 'home'])->name('public.home');
+
+Route::get('/storage/{path}', function (string $path) {
+    if (str_contains($path, '..')) {
+        abort(404);
+    }
+
+    $disk = Storage::disk('public');
+    if (!$disk->exists($path)) {
+        abort(404);
+    }
+
+    $mimeType = $disk->mimeType($path) ?? 'application/octet-stream';
+    $contents = $disk->get($path);
+
+    return response($contents, 200)
+        ->header('Content-Type', $mimeType)
+        ->header('Cache-Control', 'public, max-age=31536000');
+})->where('path', '.*');
 
 
 // Public Viewing Routes
@@ -43,6 +62,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Core CMS Resources
     Route::post('/menus/reorder', [MenuController::class, 'reorder'])->name('menus.reorder');
+    Route::post('/news/editor-upload', [\App\Http\Controllers\Web\NewsController::class, 'uploadEditorImage'])->name('news.editor-upload');
     Route::get('/news/{news}/preview', [\App\Http\Controllers\Web\NewsController::class, 'preview'])->name('news.preview');
     Route::resources([
         'pages' => PageController::class,

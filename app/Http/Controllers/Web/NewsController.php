@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class NewsController extends Controller
 {
@@ -153,5 +154,20 @@ class NewsController extends Controller
         $this->authorize('delete', $news);
         $news->delete();
         return redirect()->route('news.index')->with('success', 'News item deleted.');
+    }
+
+    public function uploadEditorImage(Request $request): JsonResponse
+    {
+        $this->authorize('create', News::class);
+
+        $validated = $request->validate([
+            'file' => 'required|image|max:4096',
+        ]);
+
+        $path = $validated['file']->store('news-content', 'public');
+
+        return response()->json([
+            'location' => '/storage/' . $path,
+        ]);
     }
 }

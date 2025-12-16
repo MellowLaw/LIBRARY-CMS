@@ -24,7 +24,7 @@ class SetSecurityHeaders
             "script-src 'self' 'unsafe-inline' https://cdn.tiny.cloud https://cdn.jsdelivr.net; " .
             "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; " .
             "font-src 'self' https://fonts.gstatic.com; " .
-            "img-src 'self' data: https:; " .
+            "img-src 'self' data: https: http:; " .
             "connect-src 'self' https://cdn.tiny.cloud https://cdn.jsdelivr.net;"
         );
 

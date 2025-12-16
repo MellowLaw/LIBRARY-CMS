@@ -4,11 +4,13 @@
 
 @section('content')
     <div class="bg-gray-50 py-12">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <article class="bg-white rounded-2xl shadow-sm overflow-hidden">
                 @if($article->image_path)
-                    <img class="w-full h-64 md:h-96 object-cover" src="{{ Storage::url($article->image_path) }}"
-                        alt="{{ $article->title }}">
+                    <div class="w-full h-64 md:h-96 bg-gray-100 flex items-center justify-center">
+                        <img class="max-w-full max-h-full object-contain" src="{{ '/storage/' . $article->image_path }}"
+                            alt="{{ $article->title }}">
+                    </div>
                 @endif
 
                 <div class="p-8 md:p-12">
@@ -37,7 +39,7 @@
                         </h1>
                     </header>
 
-                    <div class="prose prose-lg prose-emerald max-w-none">
+                    <div class="news-content text-gray-700 leading-relaxed">
                         {!! $article->content !!}
                     </div>
 
