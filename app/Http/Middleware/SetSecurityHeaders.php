@@ -17,16 +17,14 @@ class SetSecurityHeaders
     {
         $response = $next($request);
 
-        // Content Security Policy
-        $response->headers->set(
-            'Content-Security-Policy',
-            "default-src 'self'; " .
-            "script-src 'self' 'unsafe-inline' https://cdn.tiny.cloud https://cdn.jsdelivr.net; " .
-            "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; " .
-            "font-src 'self' https://fonts.gstatic.com; " .
-            "img-src 'self' data: https: http:; " .
-            "connect-src 'self' https://cdn.tiny.cloud https://cdn.jsdelivr.net;"
-        );
+        // Skip CSP in local development
+        if (app()->environment('local')) {
+            return $response;
+        }
+
+        // Production CSP
+        $csp = "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tiny.cloud https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; script-src-elem 'self' 'unsafe-inline' https://cdn.tiny.cloud https://cdn.jsdelivr.net; style-src-elem 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: http:; connect-src 'self' https://cdn.tiny.cloud https://cdn.jsdelivr.net;";
+        $response->headers->set('Content-Security-Policy', $csp);
 
         // Prevent MIME type sniffing
         $response->headers->set('X-Content-Type-Options', 'nosniff');
