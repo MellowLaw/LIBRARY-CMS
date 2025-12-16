@@ -43,6 +43,7 @@ class PageController extends Controller
         $page = Page::create([
             'title' => $data['title'],
             'slug' => $data['slug'],
+            'content' => $data['content'] ?? null,
             'meta_description' => $data['meta_description'] ?? null,
             'is_published' => $request->has('is_published'),
             'published_at' => $request->has('is_published') ? now() : null,
@@ -85,26 +86,32 @@ class PageController extends Controller
 
         $data = $request->validated();
 
-        // Use Model methods if applicable, otherwise straight fill
-        $page->fill([
-            'title' => $data['title'],
-            'slug' => $data['slug'],
-            'meta_description' => $data['meta_description'] ?? null,
-            'updated_by' => Auth::id(),
-        ]);
+        // Check if this is a publish-only request (from Quick Actions) or a full update
+        if (isset($data['title'])) {
+            // Full update with content
+            $page->fill([
+                'title' => $data['title'],
+                'slug' => $data['slug'],
+                'content' => $data['content'] ?? null,
+                'meta_description' => $data['meta_description'] ?? null,
+                'updated_by' => Auth::id(),
+            ]);
+        }
 
         // Handle publish/schedule logic via Model helpers or direct attribute setting
         if ($request->has('is_published') && $request->boolean('is_published')) {
             if (!$page->is_published) {
                 // Changing from draft to published
                 $page->publish(); // Uses model method
+            } else {
+                // Already published, just save any content updates
+                $page->save();
             }
         } elseif ($request->filled('scheduled_at')) {
             // Scheduling
             $page->schedulePublish($request->scheduled_at);
         } else {
             // Saving as draft or updating existing draft/published state without changing status
-            // If we unticked publish? usually we don't unpublish in this form logic unless explicit
             $page->save();
         }
 

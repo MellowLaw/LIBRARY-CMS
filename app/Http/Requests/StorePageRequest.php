@@ -36,6 +36,10 @@ class StorePageRequest extends FormRequest
                 'max:255',
                 'not_regex:/[<>]/',
             ],
+            'content' => [
+                'nullable',
+                'string',
+            ],
             'meta_description' => [
                 'nullable',
                 'string',

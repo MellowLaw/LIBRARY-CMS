@@ -182,15 +182,17 @@
                                     {{ optional($article->published_at)->format('M d, Y') }}
                                 </span>
                             </div>
-                            <h3 class="text-2xl font-bold text-slate-900 mb-3 group-hover:text-indigo-600 transition-colors">
+                            <h3
+                                class="text-2xl font-bold text-slate-900 mb-3 group-hover:text-indigo-600 transition-colors break-words line-clamp-2">
                                 {{ $article->title }}
                             </h3>
-                            <p class="text-slate-500 mb-6 flex-grow leading-relaxed">
+                            <p class="text-slate-500 mb-6 flex-grow leading-relaxed break-words line-clamp-3">
                                 {{ Str::limit($article->excerpt ?: strip_tags($article->content), 120) }}
                             </p>
                             <div
                                 class="flex items-center text-indigo-600 font-semibold text-sm group-hover:translate-x-2 transition-transform">
-                                Read Announcement <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                Read Announcement <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
                                 </svg>
@@ -207,12 +209,13 @@
                                 <span
                                     class="text-slate-400 text-xs font-medium">{{ $page->updated_at->format('M d, Y') }}</span>
                             </div>
-                            <h3 class="text-2xl font-bold text-slate-900 mb-3 group-hover:text-indigo-600 transition-colors">
+                            <h3
+                                class="text-2xl font-bold text-slate-900 mb-3 group-hover:text-indigo-600 transition-colors break-words line-clamp-2">
                                 <a href="{{ route('public.page', $page->slug) }}">
                                     {{ $page->title }}
                                 </a>
                             </h3>
-                            <p class="text-slate-500 mb-6 flex-grow leading-relaxed">
+                            <p class="text-slate-500 mb-6 flex-grow leading-relaxed break-words line-clamp-3">
                                 {{ Str::limit($page->meta_description ?? 'Click to read more about this topic.', 120) }}
                             </p>
                             <div
@@ -251,7 +254,16 @@
                     <p class="text-slate-500 max-w-lg text-lg">Dedicated professionals committed to serving our
                         community and helping you find exactly what you need.</p>
                 </div>
-                <!-- Controls or Link could go here -->
+                @if($staff->isNotEmpty())
+                    <a href="{{ route('public.staff.index') }}"
+                        class="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-slate-700 bg-white border border-slate-200 rounded-full hover:bg-slate-50 transition-all">
+                        View All Staff
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                        </svg>
+                    </a>
+                @endif
             </div>
 
             @if($staff->isEmpty())
@@ -265,8 +277,9 @@
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 text-center hover-lift group">
                         <div class="w-24 h-24 mx-auto mb-6 relative">
                             @if($member->profile_image)
-                                <img src="{{ Storage::url($member->profile_image) }}"
-                                    class="w-full h-full object-cover rounded-full group-hover:scale-110 transition-transform duration-300">
+                                <img src="{{ asset('storage/' . $member->profile_image) }}"
+                                    class="w-full h-full object-cover rounded-full group-hover:scale-110 transition-transform duration-300"
+                                    alt="{{ $member->name }}">
                             @else
                                 <div
                                     class="w-full h-full bg-indigo-100 text-indigo-600 flex items-center justify-center rounded-full text-2xl font-bold group-hover:bg-indigo-600 group-hover:text-white transition-colors duration-300">

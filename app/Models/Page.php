@@ -12,6 +12,7 @@ class Page extends Model
     protected $fillable = [
         'slug',
         'title',
+        'content',
         'meta_description',
         'is_published',
         'published_at',
@@ -51,8 +52,8 @@ class Page extends Model
     public function scopePublished($query)
     {
         return $query->where('is_published', true)
-                     ->whereNotNull('published_at')
-                     ->where('published_at', '<=', now());
+            ->whereNotNull('published_at')
+            ->where('published_at', '<=', now());
     }
 
     public function scopeScheduled($query)

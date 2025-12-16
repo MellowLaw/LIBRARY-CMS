@@ -76,7 +76,7 @@ class MenuController extends Controller
             ->where('id', '!=', $menu->id)
             ->orderBy('label')
             ->get();
-        
+
         return view('menus.edit', compact('menu', 'parentMenus'));
     }
 
@@ -115,5 +115,20 @@ class MenuController extends Controller
 
         return redirect()->route('menus.index')
             ->with('success', 'Menu item deleted successfully.');
+    }
+
+    /**
+     * Reorder menu items
+     */
+    public function reorder(Request $request)
+    {
+        $order = $request->input('order', []);
+
+        foreach ($order as $item) {
+            Menu::where('id', $item['id'])
+                ->update(['display_order' => $item['display_order']]);
+        }
+
+        return response()->json(['message' => 'Menu order updated successfully']);
     }
 }

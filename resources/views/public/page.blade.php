@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,9 +11,12 @@
         <meta name="description" content="{{ $page->meta_description }}">
     @endif
     <style>
-        * { font-family: 'Inter', sans-serif; }
+        * {
+            font-family: 'Inter', sans-serif;
+        }
     </style>
 </head>
+
 <body class="bg-gray-50">
     <!-- Navigation -->
     <nav class="bg-white shadow-sm border-b border-gray-200">
@@ -47,18 +51,9 @@
                 </p>
             </header>
 
-            <div class="prose max-w-none">
-                @if($page->sections->count() > 0)
-                    @foreach($page->sections as $section)
-                        <div class="mb-8">
-                            @if($section->title)
-                                <h2 class="text-2xl font-bold text-gray-900 mb-4">{{ $section->title }}</h2>
-                            @endif
-                            <div class="text-gray-700">
-                                {!! $section->content !!}
-                            </div>
-                        </div>
-                    @endforeach
+            <div class="prose prose-lg max-w-none">
+                @if($page->content)
+                    {!! $page->content !!}
                 @else
                     <p class="text-gray-500 italic">Content coming soon...</p>
                 @endif
@@ -79,5 +74,5 @@
         </div>
     </footer>
 </body>
-</html>
 
+</html>
