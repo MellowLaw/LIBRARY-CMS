@@ -96,6 +96,7 @@ h1, h2, h3, h4, h5, h6 {
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
+
 .home-btn-primary {
     background-color: var(--color-accent);
     color: white;
@@ -108,8 +109,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .home-btn-secondary {
-    background-color: #ec3412;
-    color: white;
+    background-color: #ffffff;
+    color: var(--color-text);
     border-color: #ec3412;
     border: 1px solid transparent; 
 

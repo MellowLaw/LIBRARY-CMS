@@ -26,11 +26,12 @@
 </head>
 
 <body class="h-full">
-    <div class="flex min-h-full">
+    <div class="flex min-h-half">
         <!-- Left Side: Form -->
         <div
             class="flex flex-1 flex-col justify-center px-4 py-12 sm:px-6 lg:flex-none lg:px-20 xl:px-24 bg-white z-10">
-            <div class="mx-auto w-full max-w-sm lg:w-96">
+            
+            <div <div class="mx-auto w-full max-w-sm lg:w-96">
                 <div class="sm:mx-auto sm:w-full sm:max-w-md mb-6">
                     <a href="{{ route('public.home') }}"
                         class="inline-flex items-center text-sm font-medium text-gray-500 hover:text-primary-accent transition-smooth mb-6">
@@ -43,12 +44,11 @@
                     <div class="flex justify-center mb-2">
                         <img src="{{ asset('assets/main-logo.png') }}" alt="AddLib Logo" class="h-16 w-auto">
                     </div>
-                    <h2 class="mt-8 text-3xl font-bold tracking-tight text-slate-900">Create an account</h2>
-                    <p class="mt-2 text-sm text-slate-600">
+                    <h2 class="mt-8 text-3xl font-bold tracking-tight text-slate-900 text-center">Create an account</h2>
+                    <p class="mt-2 text-sm text-slate-600 text-center">
                         Join our community of readers today.
                     </p>
                 </div>
-
 
                 <div class="mt-8">
                     <!-- Dynamic Avatar Animation -->
@@ -149,11 +149,11 @@
                                 <!-- Detailed Reqs -->
                                 <div class="mt-2 text-xs text-slate-500 grid grid-cols-2 gap-1"
                                     id="password_requirements">
-                                    <div id="req_length" class="flex items-center space-x-1 transition-colors"><span
-                                            class="text-lg leading-none">•</span> <span>At least 8 chars</span></div>
-                                    <div id="req_uppercase" class="flex items-center space-x-1 transition-colors"><span
+                                    <div id="req_length" class="flex items-center space-x-1 transition-colors "><span
+                                            class="text-lg leading-none ">•</span> <span>At least 8 chars</span></div>
+                                    <div id="req_uppercase" class="flex items-center space-x-1 transition-colors "><span
                                             class="text-lg leading-none">•</span> <span>One uppercase</span></div>
-                                    <div id="req_number" class="flex items-center space-x-1 transition-colors"><span
+                                    <div id="req_number" class="flex items-center space-x-1 transition-colors "><span
                                             class="text-lg leading-none">•</span> <span>One number</span></div>
                                     <div id="req_special" class="flex items-center space-x-1 transition-colors"><span
                                             class="text-lg leading-none">•</span> <span>One special char</span></div>
@@ -161,6 +161,7 @@
                             </div>
 
                             <div>
+                                <br>
                                 <label for="password_confirmation"
                                     class="form_input block text-sm font-medium leading-6 text-slate-900">Confirm
                                     Password</label>
@@ -390,16 +391,17 @@
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- Right Side: Image/Design -->
-        <div class="relative hidden w-0 flex-1 lg:block">
-            <!-- Image -->
-            <img class="absolute inset-0 h-full w-full object-cover" src="{{ asset('images/background.png') }}"
-                alt="Modern Library Architecture">
+    <!-- Right Side: Image/Design -->
+    <div class="relative hidden w-0 flex-1 lg:block">
+        <!-- Image -->
+        <img class="absolute inset-0 h-full w-full object-cover" src="{{ asset('images/background.png') }}"
+            alt="Modern Library Architecture">
 
-            <!-- Subtle overlay for better text contrast -->
-            <div class="absolute inset-0 bg-black/20"></div>
-        </div>
+        <!-- Subtle overlay for better text contrast -->
+        <div class="absolute inset-0 bg-black/20"></div>
+    </div>
     </div>
 </body>
 
