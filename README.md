@@ -24,7 +24,7 @@ A modern, feature-rich Content Management System built with Laravel 12 for manag
 
 ### User Management
 - **Role-Based Access Control**: Admin, Librarian, and Member roles
-- **Authentication**: Secure login/register with email verification support
+- **Authentication**: Secure login/register with input validation and sanitation
 - **User Profiles**: Customizable user information and preferences
 
 ### Navigation
