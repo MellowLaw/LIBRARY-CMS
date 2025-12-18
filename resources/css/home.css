@@ -14,7 +14,12 @@ body {
     font-family: var(--font-body);
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-family: var(--font-heading);
 }
 
@@ -22,6 +27,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .home-hero-section,
 .home-news-section,
+.home-books-section,
 .home-staff-section,
 .home-resources-section {
     width: 100%;
@@ -75,7 +81,8 @@ h1, h2, h3, h4, h5, h6 {
 
 .home-hero-subtitle {
     font-size: 1.25rem;
-    color: #4b5563; /* Slate 600 equivalent */
+    color: #4b5563;
+    /* Slate 600 equivalent */
     max-width: 600px;
     margin: 0 auto 2.5rem;
     line-height: 1.6;
@@ -103,7 +110,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .home-btn-primary:hover {
-    background-color: #c5200b; /* Darker accent */
+    background-color: #c5200b;
+    /* Darker accent */
     transform: translateY(-2px);
     box-shadow: 0 10px 15px -3px rgba(236, 52, 18, 0.3);
 }
@@ -112,7 +120,7 @@ h1, h2, h3, h4, h5, h6 {
     background-color: #ffffff;
     color: var(--color-text);
     border-color: #ec3412;
-    border: 1px solid transparent; 
+    border: 1px solid transparent;
 
 }
 
@@ -128,19 +136,21 @@ h1, h2, h3, h4, h5, h6 {
     background: white;
     border-radius: 1rem;
     padding: 2rem;
-    border: 1px solid rgba(0,0,0,0.05);
+    border: 1px solid rgba(0, 0, 0, 0.05);
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
     transition: all 0.3s ease;
     height: 100%;
     display: flex;
     flex-direction: column;
-    text-align: left; /* Default left align for card content */
+    text-align: left;
+    /* Default left align for card content */
 }
 
 .home-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.01);
-    border-color: rgba(236, 52, 18, 0.2); /* Accent hint */
+    border-color: rgba(236, 52, 18, 0.2);
+    /* Accent hint */
 }
 
 .home-card-image {
@@ -212,22 +222,16 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Section specific overrides */
-.home-news-section {
-    background-color: white; /* Clean white for news */
-}
-
+.home-news-section,
 .home-staff-section {
-    background-color: #f8fafc; /* Very light slate */
-}
-
-.home-resources-section {
-    background-color: #efeae4; /* Dark mode for contrast */
+    background-color: var(--color-bg);
+    /* #efeae4 */
     color: var(--color-text);
 }
 
-.home-news-section, .home-staff-section {
-    background-color: #efeae4; /* Dark mode for contrast */
-    color: var(--color-text);
+.home-books-section {
+    background-color: white;
+    /* Alternate white for books */
 }
 
 .home-section-title {
@@ -247,7 +251,7 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 1.125rem;
 }
 
-.home_image{
+.home_image {
     width: 200px;
     height: 200px;
     object-fit: cover;

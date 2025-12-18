@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app', ['hideFooter' => true])
 
 @section('title', 'My Dashboard - AddLib')
 

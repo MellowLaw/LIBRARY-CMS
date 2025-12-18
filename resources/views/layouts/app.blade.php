@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Library CMS')</title>
+    <link rel="icon" type="image/png" href="{{ asset('assets/favicon.png') }}">
 
     <!-- Tailwind CSS -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -94,7 +95,9 @@
         </main>
     </div>
 
-    @include('layouts.footer')
+    @unless(isset($hideFooter) && $hideFooter)
+        @include('layouts.footer')
+    @endunless
 </div>
 
 <script>

@@ -8,6 +8,7 @@ use App\Models\Page;
 use App\Models\Menu;
 use App\Models\StaffProfile;
 use App\Models\ResourceLink;
+use App\Models\Book;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
@@ -17,6 +18,11 @@ class PageController extends Controller
      */
     public function home()
     {
+        $books = Book::published()
+            ->latest()
+            ->limit(3)
+            ->get();
+
         $news = News::published()
             ->orderBy('published_at', 'desc')
             ->limit(6)
@@ -41,7 +47,7 @@ class PageController extends Controller
             ->topLevel()
             ->get();
 
-        return view('public.home', compact('news', 'pages', 'staff', 'resources', 'menus'));
+        return view('public.home', compact('books', 'news', 'pages', 'staff', 'resources', 'menus'));
     }
 
     /**

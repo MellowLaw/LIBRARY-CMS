@@ -75,26 +75,31 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/profile', [\App\Http\Controllers\Web\ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [\App\Http\Controllers\Web\ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    // Borrow Book
-    // Borrow Book
-    // Borrow Book
-    Route::get('/admin/loans', [\App\Http\Controllers\Web\LoanController::class, 'index'])->name('admin.loans.index');
-    Route::get('/admin/loans/active', [\App\Http\Controllers\Web\LoanController::class, 'activeLoans'])->name('admin.loans.active');
-    Route::post('/loans/borrow', [\App\Http\Controllers\Web\LoanController::class, 'borrow'])->name('loans.borrow');
-    Route::post('/loans/{loan}/approve', [\App\Http\Controllers\Web\LoanController::class, 'approve'])->name('loans.approve');
-    Route::post('/loans/{loan}/reject', [\App\Http\Controllers\Web\LoanController::class, 'reject'])->name('loans.reject');
-    Route::post('/loans/{loan}/return', [\App\Http\Controllers\Web\LoanController::class, 'returnBook'])->name('loans.return');
+    // Admin & Librarian ONLY Routes
+    Route::middleware(['role:admin,librarian'])->group(function () {
+        // Admin Book Management and Loan Approvals
+        Route::get('/admin/loans', [\App\Http\Controllers\Web\LoanController::class, 'index'])->name('admin.loans.index');
+        Route::get('/admin/loans/active', [\App\Http\Controllers\Web\LoanController::class, 'activeLoans'])->name('admin.loans.active');
+        Route::post('/loans/{loan}/approve', [\App\Http\Controllers\Web\LoanController::class, 'approve'])->name('loans.approve');
+        Route::post('/loans/{loan}/reject', [\App\Http\Controllers\Web\LoanController::class, 'reject'])->name('loans.reject');
 
-    // Core CMS Resources
-    Route::post('/menus/reorder', [MenuController::class, 'reorder'])->name('menus.reorder');
-    Route::post('/news/editor-upload', [\App\Http\Controllers\Web\NewsController::class, 'uploadEditorImage'])->name('news.editor-upload');
-    Route::get('/news/{news}/preview', [\App\Http\Controllers\Web\NewsController::class, 'preview'])->name('news.preview');
-    Route::resources([
-        'pages' => PageController::class,
-        'menus' => MenuController::class,
-        'staff' => StaffController::class,
-        'resources' => ResourceController::class,
-        'news' => \App\Http\Controllers\Web\NewsController::class,
-        'books' => \App\Http\Controllers\Web\BookController::class,
-    ]);
+        // Reordering and Editor Uploads
+        Route::post('/menus/reorder', [MenuController::class, 'reorder'])->name('menus.reorder');
+        Route::post('/news/editor-upload', [\App\Http\Controllers\Web\NewsController::class, 'uploadEditorImage'])->name('news.editor-upload');
+        Route::get('/news/{news}/preview', [\App\Http\Controllers\Web\NewsController::class, 'preview'])->name('news.preview');
+
+        // Core CMS Resources
+        Route::resources([
+            'pages' => PageController::class,
+            'menus' => MenuController::class,
+            'staff' => StaffController::class,
+            'resources' => ResourceController::class,
+            'news' => \App\Http\Controllers\Web\NewsController::class,
+            'books' => \App\Http\Controllers\Web\BookController::class,
+        ]);
+    });
+
+    // Viewer Allowed Actions (Borrowing)
+    Route::post('/loans/borrow', [\App\Http\Controllers\Web\LoanController::class, 'borrow'])->name('loans.borrow');
+    Route::post('/loans/{loan}/return', [\App\Http\Controllers\Web\LoanController::class, 'returnBook'])->name('loans.return');
 });

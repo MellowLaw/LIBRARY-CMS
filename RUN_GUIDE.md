@@ -1,7 +1,7 @@
 # LibraryCMS - System Guide
 
 ## **1. Project Overview**
-This is a **Library Content Management System (CMS)** built with **Laravel 11**, **Tailwind CSS**, and **Alpine.js**. It features a dual-interface system:
+This is a **Library Content Management System (CMS)** built with **Laravel 12**, **Tailwind CSS v4**, and **Alpine.js**. It features a dual-interface system:
 1.  **Public Library**: For users to browse, search, and view book details.
 2.  **User Dashboard ("My Library")**: For regular users to manage their profile and see borrowed books.
 3.  **Admin Panel**: For librarians to manage Books, Authors, Categories, and CMS pages.
@@ -17,7 +17,18 @@ Before running the system, ensure you have the following installed:
 
 ---
 
-## **3. Installation Steps**
+### **Option A: Quick Setup (Recommended)**
+Run this single command to install everything, set up the database, and build assets:
+```bash
+composer run setup
+```
+> **Note**: Ensure you have created the database `library_cms` in your MySQL first.
+> **Important**: After setup is complete, run the following command to link the storage:
+```bash
+php artisan storage:link
+```
+
+### **Option B: Manual Installation**
 
 ### **Step 1: Clone & Install Dependencies**
 Open your terminal in the project folder:
@@ -49,13 +60,19 @@ npm install
     ```
 
 ### **Step 3: Database & Seeding**
-Run the migrations and seed the database with sample data (Books, Authors, Users):
+Run the migrations and seed the database with sample data:
 ```bash
 php artisan migrate:fresh --seed
 ```
 > **Note**: This creates default accounts (Admin and Viewer) and populates the library with dummy books.
 
-### **Step 4: Build Assets**
+### **Step 4: Storage Link**
+Create the symbolic link for file uploads:
+```bash
+php artisan storage:link
+```
+
+### **Step 5: Build Assets**
 Compile the Tailwind CSS and Javascript files:
 ```bash
 npm run build
@@ -86,6 +103,7 @@ The site will be accessible at: **`http://localhost:8000`**
 
 #### **1. Public Visitor (Not Logged In)**
 *   **Home (`/`)**: Landing page displaying latest News, Pages, and Staff profiles.
+*   **Books (`/public/books`)**: Browse the entire library collection.
 *   **News (`/public/news`)**: Read announcements and updates.
 *   **Sign In**: Click "Login" in the URL bar manually (or add a link in your template) to access the Admin Panel.
 
@@ -93,13 +111,14 @@ The site will be accessible at: **`http://localhost:8000`**
 *   **Login**: Use the *Viewer Account*.
 *   **Dashboard**: Clicking "Dashboard" redirects you to **"My Library"** (`/library/my-dashboard`).
     *   Here you can see your profile and status.
-    *   Future features will list your "Borrowed Books" here.
+    *   **Borrowed Books**: View list of books you are borrowing and access "View Book" details.
 *   **Logout**: Accessible via the Profile Dropdown in the top right.
 
 #### **3. Administrator ("Admin")**
 *   **Login**: Use the *Admin Account*.
 *   **Admin Dashboard**: Clicking "Dashboard" takes you to the **CMS Backend**.
 *   **Content Management**:
+    *   **Books**: Manage book inventory, authors, categories, and book contents.
     *   **Pages**: Manage the "Vision", "Mission", and other static content.
     *   **News**: Post announcements and updates.
     *   **Staff**: Manage staff profiles showcased on the public site.

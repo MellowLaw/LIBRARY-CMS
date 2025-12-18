@@ -1,6 +1,6 @@
 # Library CMS
 
-A modern, feature-rich Content Management System built with Laravel 12 for managing library resources, news, pages, and staff information.
+A modern, feature-rich Content Management System built with Laravel 12 for managing library resources, books, news, pages, and staff information.
 
 ## Table of Contents
 - [Features](#features)
@@ -30,10 +30,12 @@ A modern, feature-rich Content Management System built with Laravel 12 for manag
 ### Navigation
 - **Dynamic Menus**: Drag-and-drop menu builder for custom navigation
 - **SEO-Friendly URLs**: Clean, readable URLs for all public pages
-- **Responsive Design**: Mobile-first design with Tailwind CSS
+- **Responsive Design**: Mobile-first design with Tailwind CSS v4
 
 ### Additional Features
-- **Book Catalog**: Manage library book inventory with categories and authors
+- **Public Book Catalog**: Browse and search the library's collection publicly
+- **Book Management**: Detailed book inventory with categories, authors, and chapter contents
+- **Borrowing System**: Track borrowed books and view details in member dashboard
 - **Audit Logging**: Track changes and user activities
 - **Security Headers**: CSP and other security headers implemented
 - **Modern UI**: Clean, professional interface with smooth animations
@@ -52,6 +54,15 @@ A modern, feature-rich Content Management System built with Laravel 12 for manag
 ---
 
 ## Installation
+
+### Quick Start (Recommended)
+You can set up the entire project with a single command which handles dependencies, environment, keys, migrations, and assets:
+```bash
+composer run setup
+php artisan storage:link
+```
+
+### Manual Installation
 
 ### 1. Clone the Repository
 ```bash

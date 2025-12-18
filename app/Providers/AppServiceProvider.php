@@ -53,5 +53,12 @@ class AppServiceProvider extends ServiceProvider
                 ->orderBy('display_order')
                 ->get());
         });
+
+        // Share resources with footer
+        \Illuminate\Support\Facades\View::composer(['layouts.footer'], function ($view) {
+            $view->with('footerResources', \App\Models\ResourceLink::active()
+                ->ordered()
+                ->get());
+        });
     }
 }

@@ -72,6 +72,51 @@
         </div>
     </section>
 
+    <!-- Featured Books Section -->
+    <section id="books" class="home-books-section">
+        <div class="home-news-content">
+            <h4 class="title_card fade-in-up text-center">
+                Featured <span class="italic" style="color: #ec3412;">Books.</span>
+            </h4>
+            <p class="home-section-subtitle text-center">Discover our most popular and recent additions.</p>
+
+            @if($books->isEmpty())
+                <div class="text-center py-12 text-gray-500">
+                    <p class="text-lg">Our collection is growing. Check back soon for featured books!</p>
+                </div>
+            @else
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    @foreach($books as $book)
+                        <a href="{{ route('public.books.show', $book) }}" class="home-card group flex flex-col h-full hover:-translate-y-1 hover:shadow-xl transition-all duration-300">
+                            @if($book->cover_image)
+                                <img src="{{ asset('storage/' . $book->cover_image) }}" alt="{{ $book->title }}" class="home-card-image w-full h-64 object-cover rounded-xl mb-4">
+                            @else
+                                <div class="home-card-image w-full h-64 bg-red-50 flex items-center justify-center rounded-xl mb-4">
+                                    <svg class="h-16 w-16 text-red-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                                    </svg>
+                                </div>
+                            @endif
+                            <div class="flex flex-col flex-1">
+                                <span class="home-card-tag inline-block px-3 py-1 bg-red-50 text-red-600 rounded-full text-xs font-bold uppercase tracking-wider mb-2 self-start">
+                                    {{ $book->category->name }}
+                                </span>
+                                <h3 class="home-card-title text-xl font-bold text-gray-900 mb-2 leading-tight group-hover:text-red-600 transition-colors line-clamp-2">{{ $book->title }}</h3>
+                                <p class="home-card-text text-gray-500 text-sm mb-4">by <span class="font-medium text-gray-700">{{ $book->author }}</span></p>
+                                <span class="home-card-link mt-auto flex items-center gap-1 text-red-600 font-medium text-sm transition-gap">
+                                    View Details <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                                </span>
+                            </div>
+                        </a>
+                    @endforeach
+                </div>
+                <div class="text-center mt-12">
+                    <a href="{{ route('public.books.index') }}" class="home-btn home-btn-secondary">Browse All Books</a>
+                </div>
+            @endif
+        </div>
+    </section>
+
     <!-- Staff Section -->
     <section id="staff" class="home-staff-section">
         <div class="home-staff-content">
@@ -117,27 +162,6 @@
                    <a href="{{ route('public.staff.index') }}" class="home-btn home-btn-secondary">View Full Team</a>
                 </div>
             @endif
-        </div>
-    </section>
-
-    <!-- Resources / Footer CTA -->
-    <section class="home-resources-section">
-        <div class="home-resources-content">
-            <h4 class="title_card fade-in-up">
-                Explore Digital <span class="italic" style="color: #ec3412;">Resources.</span>
-            </h4>
-            <p class="home-section-subtitle text-slate-300">Curated collection of online tools and learning materials.</p>
-
-            <div class="flex flex-wrap justify-center gap-4">
-                @foreach($resources as $resource)
-                    <a href="{{ $resource->url }}" target="_blank" class="home-btn home-btn-secondary bg-white/10 border-white/20 text-white hover:bg-white/20 hover:border-white/40">
-                        {{ $resource->title }}
-                    </a>
-                @endforeach
-                 @if($resources->isEmpty())
-                    <span class="text-slate-400 italic">Resources updating soon...</span>
-                @endif
-            </div>
         </div>
     </section>
 @endsection
