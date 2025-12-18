@@ -38,6 +38,17 @@
             <span>News</span>
         </a>
 
+        <a href="{{ route('books.index') }}"
+            class="flex items-center gap-3 px-4 py-3 rounded-lg transition-smooth font-medium {{ request()->routeIs('books.*') ? 'bg-white text-[#ec3412] shadow-sm ring-1 ring-[#e5e7eb]' : 'text-[#0f0701] hover:bg-white/50 hover:text-[#ec3412]' }}">
+            <svg class="w-5 h-5 {{ request()->routeIs('books.*') ? 'text-[#ec3412]' : 'text-gray-400 group-hover:text-[#ec3412]' }}"
+                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253">
+                </path>
+            </svg>
+            <span>Books</span>
+        </a>
+
         <a href="{{ route('menus.index') }}"
             class="flex items-center gap-3 px-4 py-3 rounded-lg transition-smooth font-medium {{ request()->routeIs('menus.*') ? 'bg-white text-[#ec3412] shadow-sm ring-1 ring-[#e5e7eb]' : 'text-[#0f0701] hover:bg-white/50 hover:text-[#ec3412]' }}">
             <svg class="w-5 h-5 {{ request()->routeIs('menus.*') ? 'text-[#ec3412]' : 'text-gray-400 group-hover:text-[#ec3412]' }}"

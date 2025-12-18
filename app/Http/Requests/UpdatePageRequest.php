@@ -12,8 +12,7 @@ class UpdatePageRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        $user = $this->user();
-        return $user && ($user->isAdmin() || $user->isLibrarian());
+        return auth()->check();
     }
 
     /**

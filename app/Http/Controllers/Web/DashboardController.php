@@ -29,6 +29,11 @@ class DashboardController extends Controller
         $resourceCount = \App\Models\ResourceLink::count();
         $newsCount = \App\Models\News::count();
 
+        // Book Statistics
+        $totalBooks = \App\Models\Book::count();
+        $availableBooks = \App\Models\Book::sum('available_copies');
+        $borrowedBooks = \App\Models\Loan::whereNull('returned_date')->count();
+
         $recentPages = \App\Models\Page::with('creator')
             ->orderBy('updated_at', 'desc')
             ->limit(5)
@@ -40,6 +45,9 @@ class DashboardController extends Controller
             'staffCount',
             'resourceCount',
             'newsCount',
+            'totalBooks',
+            'availableBooks',
+            'borrowedBooks',
             'recentPages'
         ));
     }

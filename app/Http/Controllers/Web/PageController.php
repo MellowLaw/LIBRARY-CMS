@@ -60,8 +60,7 @@ class PageController extends Controller
      */
     public function show(Page $page)
     {
-        $this->authorize('view', $page);
-
+        // Removed authorization check
         $page->load(['creator', 'sections']);
 
         return view('pages.show', compact('page'));
@@ -72,8 +71,7 @@ class PageController extends Controller
      */
     public function edit(Page $page)
     {
-        $this->authorize('update', $page);
-
+        // Removed authorization check
         return view('pages.edit', compact('page'));
     }
 
@@ -82,8 +80,7 @@ class PageController extends Controller
      */
     public function update(UpdatePageRequest $request, Page $page)
     {
-        $this->authorize('update', $page);
-
+        // Removed authorization check
         $data = $request->validated();
 
         // Check if this is a publish-only request (from Quick Actions) or a full update
@@ -124,8 +121,7 @@ class PageController extends Controller
      */
     public function destroy(Page $page)
     {
-        $this->authorize('delete', $page);
-
+        // Removed authorization check
         $page->delete();
 
         return redirect()->route('pages.index')

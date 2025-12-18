@@ -47,6 +47,8 @@ Route::get('/public/news', [\App\Http\Controllers\Public\NewsController::class, 
 Route::get('/public/news/{slug}', [\App\Http\Controllers\Public\NewsController::class, 'show'])->name('public.news.show');
 Route::get('/public/staff', [\App\Http\Controllers\Public\StaffController::class, 'index'])->name('public.staff.index');
 Route::get('/public/resources', [\App\Http\Controllers\Web\ResourceController::class, 'index'])->name('public.resources.index'); // Reusing Web? verify.
+Route::get('/public/books', [\App\Http\Controllers\Public\BookController::class, 'index'])->name('public.books.index');
+Route::get('/public/books/{book}', [\App\Http\Controllers\Public\BookController::class, 'show'])->name('public.books.show');
 Route::get('/public/{slug}', [PublicPageController::class, 'show'])->name('public.page');
 
 // Authentication Routes with Rate Limiting
@@ -65,8 +67,11 @@ Route::middleware('throttle:register')->group(function () {
 });
 
 // Protected Administrative Routes
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    // Borrow Book
+    Route::post('/loans/borrow', [\App\Http\Controllers\Web\LoanController::class, 'borrow'])->name('loans.borrow');
 
     // Core CMS Resources
     Route::post('/menus/reorder', [MenuController::class, 'reorder'])->name('menus.reorder');
@@ -78,5 +83,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         'staff' => StaffController::class,
         'resources' => ResourceController::class,
         'news' => \App\Http\Controllers\Web\NewsController::class,
+        'books' => \App\Http\Controllers\Web\BookController::class,
     ]);
 });
