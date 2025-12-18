@@ -11,6 +11,19 @@ use Carbon\Carbon;
 class LoanController extends Controller
 {
     /**
+     * Display a listing of pending loan requests.
+     */
+    public function index()
+    {
+        $loans = Loan::with(['user', 'book'])
+            ->where('status', 'pending')
+            ->latest()
+            ->paginate(10);
+            
+        return view('admin.loans.index', compact('loans'));
+    }
+
+    /**
      * Borrow a book (create loan).
      */
     public function borrow(Request $request)
@@ -26,27 +39,104 @@ class LoanController extends Controller
             return redirect()->back()->with('error', 'This book is currently unavailable.');
         }
 
-        // Check if user already has an active loan for this book
+        // Check if user already has an active loan or pending request for this book
         $existingLoan = Loan::where('user_id', auth()->id())
             ->where('book_id', $book->id)
-            ->whereNull('returned_date')
+            ->where(function ($query) {
+                $query->whereNull('returned_date')
+                      ->orWhere('status', 'pending');
+            })
             ->first();
 
         if ($existingLoan) {
-            return redirect()->back()->with('error', 'You already have an active loan for this book.');
+            $msg = $existingLoan->status === 'pending' 
+                ? 'You already have a pending request for this book.' 
+                : 'You already have an active loan for this book.';
+            return redirect()->back()->with('error', $msg);
         }
 
-        // Create loan
+        // Create loan request (pending)
+        // We decrement copies NOW to reserve it, but if rejected we increment back.
+        // OR we don't decrement until approved.
+        // Let's reserve it to avoid race conditions where 10 people request the last copy.
+        $book->decrement('available_copies');
+
         Loan::create([
             'user_id' => auth()->id(),
             'book_id' => $book->id,
-            'checkout_date' => now(),
-            'due_date' => now()->addDays(14), // 2 weeks
+            'status' => 'pending',
+            'checkout_date' => now(), // Placeholder, will update on approval
+            'due_date' => now()->addDays(14), // Placeholder
         ]);
 
-        // Decrement available copies
-        $book->decrement('available_copies');
+        return redirect()->route('public.books.show', $book)->with('success', 'Loan request submitted! Please wait for admin approval.');
+        
+    }
 
-        return redirect()->route('public.books.show', $book)->with('success', 'Book borrowed successfully! Due date: ' . now()->addDays(14)->format('M d, Y'));
+    /**
+     * Approve a loan request.
+     */
+    public function approve(Loan $loan)
+    {
+        // Add authorization check here if needed (e.g., Auth::user()->isAdmin())
+
+        $loan->update([
+            'status' => 'approved',
+            'checkout_date' => now(),
+            'due_date' => now()->addDays(14),
+            'approved_at' => now(),
+        ]);
+
+        return redirect()->back()->with('success', 'Loan request approved successfully.');
+    }
+
+    /**
+     * Reject a loan request.
+     */
+    public function reject(Request $request, Loan $loan)
+    {
+        $request->validate([
+            'rejection_reason' => 'required|string|max:255',
+        ]);
+
+        $loan->update([
+            'status' => 'rejected',
+            'rejection_reason' => $request->rejection_reason,
+            'returned_date' => now(), // Mark as closed
+        ]);
+
+        // Increment copy back since it was reserved
+        $loan->book->increment('available_copies');
+
+        return redirect()->back()->with('success', 'Loan request rejected.');
+    }
+
+    /**
+     * Display active loans for admin.
+     */
+    public function activeLoans()
+    {
+        $loans = Loan::with(['user', 'book'])
+            ->where('status', 'approved')
+            ->whereNull('returned_date')
+            ->latest()
+            ->paginate(15);
+            
+        return view('admin.loans.active', compact('loans'));
+    }
+
+    /**
+     * Mark a loan as returned.
+     */
+    public function returnBook(Loan $loan)
+    {
+        $loan->update([
+            'returned_date' => now(),
+        ]);
+
+        // Increment available copies
+        $loan->book->increment('available_copies');
+
+        return redirect()->back()->with('success', 'Book returned successfully.');
     }
 }

@@ -73,9 +73,17 @@ Route::middleware(['auth'])->group(function () {
     // Profile Settings
     Route::get('/profile', [\App\Http\Controllers\Web\ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile', [\App\Http\Controllers\Web\ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [\App\Http\Controllers\Web\ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // Borrow Book
+    // Borrow Book
+    // Borrow Book
+    Route::get('/admin/loans', [\App\Http\Controllers\Web\LoanController::class, 'index'])->name('admin.loans.index');
+    Route::get('/admin/loans/active', [\App\Http\Controllers\Web\LoanController::class, 'activeLoans'])->name('admin.loans.active');
     Route::post('/loans/borrow', [\App\Http\Controllers\Web\LoanController::class, 'borrow'])->name('loans.borrow');
+    Route::post('/loans/{loan}/approve', [\App\Http\Controllers\Web\LoanController::class, 'approve'])->name('loans.approve');
+    Route::post('/loans/{loan}/reject', [\App\Http\Controllers\Web\LoanController::class, 'reject'])->name('loans.reject');
+    Route::post('/loans/{loan}/return', [\App\Http\Controllers\Web\LoanController::class, 'returnBook'])->name('loans.return');
 
     // Core CMS Resources
     Route::post('/menus/reorder', [MenuController::class, 'reorder'])->name('menus.reorder');

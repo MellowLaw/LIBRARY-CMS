@@ -22,8 +22,14 @@ class DashboardController extends Controller
         if (Auth::user()->role === 'viewer') {
             $borrowedBooks = \App\Models\Loan::with('book')
                 ->where('user_id', Auth::id())
-                ->whereNull('returned_date')
-                ->get();
+                ->where(function ($query) {
+                    $query->whereNull('returned_date')
+                          ->orWhere('status', 'rejected');
+                })
+                ->latest() // Sort by date so new interactions are top
+                ->get()
+                ->unique('book_id')
+                ->values();
 
             return view('dashboard.viewer', compact('borrowedBooks'));
         }

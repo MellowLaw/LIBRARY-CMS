@@ -90,23 +90,40 @@
 
                     <!-- Borrow Button -->
                     @auth
-                        @if ($isBorrowed)
-                            <div class="mb-6 px-6 py-3 bg-indigo-600 text-white rounded-lg text-center font-semibold text-lg shadow-md">
-                                Borrowed
-                            </div>
-                        @elseif($book->available_copies > 0)
-                            <form action="{{ route('loans.borrow') }}" method="POST" class="mb-6">
-                                @csrf
-                                <input type="hidden" name="book_id" value="{{ $book->id }}">
-                                <button type="submit"
-                                    class="w-full px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors font-semibold text-lg shadow-md hover:shadow-lg">
-                                    Borrow This Book
-                                </button>
-                            </form>
+                        @if ($activeLoan && $activeLoan->status !== 'rejected')
+                            @if ($activeLoan->status === 'pending')
+                                <div class="mb-6 px-6 py-3 bg-yellow-100 text-yellow-800 rounded-lg text-center font-semibold text-lg shadow-sm border border-yellow-200">
+                                    Book Requested (Pending)
+                                </div>
+                            @elseif ($activeLoan->status === 'approved')
+                                <div class="mb-6 px-6 py-3 bg-indigo-600 text-white rounded-lg text-center font-semibold text-lg shadow-md">
+                                    Currently Borrowed
+                                </div>
+                            @endif
                         @else
-                            <div class="mb-6 px-6 py-3 bg-gray-200 text-gray-600 rounded-lg text-center font-semibold">
-                                Currently Unavailable
-                            </div>
+                            {{-- Show Rejection Message if applicable --}}
+                            @if($activeLoan && $activeLoan->status === 'rejected')
+                                <div class="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+                                    <h3 class="text-red-800 font-bold mb-1">Request Rejected</h3>
+                                    <p class="text-red-700 text-sm">Reason: {{ $activeLoan->rejection_reason }}</p>
+                                </div>
+                            @endif
+
+                            {{-- Borrow Form --}}
+                            @if($book->available_copies > 0)
+                                <form action="{{ route('loans.borrow') }}" method="POST" class="mb-6">
+                                    @csrf
+                                    <input type="hidden" name="book_id" value="{{ $book->id }}">
+                                    <button type="submit"
+                                        class="w-full px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors font-semibold text-lg shadow-md hover:shadow-lg">
+                                        {{ $activeLoan && $activeLoan->status === 'rejected' ? 'Try Requesting Again' : 'Borrow This Book' }}
+                                    </button>
+                                </form>
+                            @else
+                                <div class="mb-6 px-6 py-3 bg-gray-200 text-gray-600 rounded-lg text-center font-semibold">
+                                    Currently Unavailable
+                                </div>
+                            @endif
                         @endif
                     @else
                         <a href="{{ route('login') }}"

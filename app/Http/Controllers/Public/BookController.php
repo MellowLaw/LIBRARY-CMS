@@ -63,14 +63,23 @@ class BookController extends Controller
             ->limit(4)
             ->get();
 
-        $isBorrowed = false;
+        $activeLoan = null;
         if (Auth::check()) {
-            $isBorrowed = \App\Models\Loan::where('user_id', Auth::id())
+            // Get the latest interaction with this book
+            $activeLoan = \App\Models\Loan::where('user_id', Auth::id())
                 ->where('book_id', $book->id)
-                ->whereNull('returned_date')
-                ->exists();
+                ->latest()
+                ->first();
+                
+            // If the latest loan is returned nicely (and not rejected), 
+            // we treat it as "no active loan" so the user can borrow again without seeing old history.
+            // But if it's rejected, we want to show it.
+            // If it's active (null returned date), we show it.
+            if ($activeLoan && $activeLoan->returned_date && $activeLoan->status !== 'rejected') {
+                $activeLoan = null;
+            }
         }
 
-        return view('public.books.show', compact('book', 'relatedBooks', 'isBorrowed'));
+        return view('public.books.show', compact('book', 'relatedBooks', 'activeLoan'));
     }
 }
