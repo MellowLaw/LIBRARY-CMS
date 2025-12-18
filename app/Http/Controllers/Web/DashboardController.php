@@ -20,7 +20,12 @@ class DashboardController extends Controller
 
         // Viewers get their own dashboard view
         if (Auth::user()->role === 'viewer') {
-            return view('dashboard.viewer');
+            $borrowedBooks = \App\Models\Loan::with('book')
+                ->where('user_id', Auth::id())
+                ->whereNull('returned_date')
+                ->get();
+
+            return view('dashboard.viewer', compact('borrowedBooks'));
         }
 
         $totalPages = \App\Models\Page::count();
@@ -33,6 +38,11 @@ class DashboardController extends Controller
         $totalBooks = \App\Models\Book::count();
         $availableBooks = \App\Models\Book::sum('available_copies');
         $borrowedBooks = \App\Models\Loan::whereNull('returned_date')->count();
+
+        $myLoans = \App\Models\Loan::with('book')
+            ->where('user_id', Auth::id())
+            ->whereNull('returned_date')
+            ->get();
 
         $recentPages = \App\Models\Page::with('creator')
             ->orderBy('updated_at', 'desc')
@@ -48,6 +58,7 @@ class DashboardController extends Controller
             'totalBooks',
             'availableBooks',
             'borrowedBooks',
+            'myLoans',
             'recentPages'
         ));
     }

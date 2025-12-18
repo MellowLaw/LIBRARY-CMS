@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Book;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BookController extends Controller
 {
@@ -35,7 +36,15 @@ class BookController extends Controller
         $books = $query->paginate(12);
         $categories = Category::has('books')->get();
 
-        return view('public.books.index', compact('books', 'categories'));
+        $borrowedBookIds = [];
+        if (Auth::check()) {
+            $borrowedBookIds = \App\Models\Loan::where('user_id', Auth::id())
+                ->whereNull('returned_date')
+                ->pluck('book_id')
+                ->toArray();
+        }
+
+        return view('public.books.index', compact('books', 'categories', 'borrowedBookIds'));
     }
 
     /**
@@ -54,6 +63,14 @@ class BookController extends Controller
             ->limit(4)
             ->get();
 
-        return view('public.books.show', compact('book', 'relatedBooks'));
+        $isBorrowed = false;
+        if (Auth::check()) {
+            $isBorrowed = \App\Models\Loan::where('user_id', Auth::id())
+                ->where('book_id', $book->id)
+                ->whereNull('returned_date')
+                ->exists();
+        }
+
+        return view('public.books.show', compact('book', 'relatedBooks', 'isBorrowed'));
     }
 }

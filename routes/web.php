@@ -70,6 +70,10 @@ Route::middleware('throttle:register')->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+    // Profile Settings
+    Route::get('/profile', [\App\Http\Controllers\Web\ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile', [\App\Http\Controllers\Web\ProfileController::class, 'update'])->name('profile.update');
+
     // Borrow Book
     Route::post('/loans/borrow', [\App\Http\Controllers\Web\LoanController::class, 'borrow'])->name('loans.borrow');
 

@@ -26,10 +26,19 @@
                             class="dashboard_button text-xs text-primary-accent hover:text-red-700 font-medium transition-smooth">
                             View Dashboard
                         </a>
+                        <a href="{{ route('profile.edit') }}"
+                            class="text-[10px] text-gray-500 hover:text-primary-accent transition-smooth">
+                            Account Settings
+                        </a>
                     </div>
                     <div
-                        class="circle_profile h-10 w-10 rounded-full bg-primary-bg flex items-center justify-center text-primary-accent font-bold border border-gray-200">
-                        {{ substr(Auth::user()->name, 0, 1) }}
+                        class="circle_profile h-10 w-10 rounded-full bg-primary-bg flex items-center justify-center text-primary-accent font-bold border border-gray-200 overflow-hidden">
+                        @if (Auth::user()->profile_picture)
+                            <img src="{{ asset('storage/' . Auth::user()->profile_picture) }}" alt="{{ Auth::user()->name }}"
+                                class="w-full h-full object-cover">
+                        @else
+                            {{ substr(Auth::user()->name, 0, 1) }}
+                        @endif
                     </div>
                 @else
                     <a href="{{ route('register') }}" class="navbar_button">Sign Up</a>

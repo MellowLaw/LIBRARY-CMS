@@ -58,7 +58,12 @@
                                 {{ $book->category->name }}
                             </span>
 
-                            @if($book->available_copies > 0)
+                            @if(isset($borrowedBookIds) && in_array($book->id, $borrowedBookIds))
+                                <span class="text-indigo-600 text-xs font-bold mb-2 flex items-center gap-1">
+                                    <span class="w-2 h-2 bg-indigo-500 rounded-full"></span>
+                                    Borrowed
+                                </span>
+                            @elseif($book->available_copies > 0)
                                 <span class="text-green-600 text-xs font-medium mb-2 flex items-center gap-1">
                                     <span class="w-2 h-2 bg-green-500 rounded-full"></span>
                                     Available

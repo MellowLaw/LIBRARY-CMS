@@ -90,7 +90,11 @@
 
                     <!-- Borrow Button -->
                     @auth
-                        @if($book->available_copies > 0)
+                        @if ($isBorrowed)
+                            <div class="mb-6 px-6 py-3 bg-indigo-600 text-white rounded-lg text-center font-semibold text-lg shadow-md">
+                                Borrowed
+                            </div>
+                        @elseif($book->available_copies > 0)
                             <form action="{{ route('loans.borrow') }}" method="POST" class="mb-6">
                                 @csrf
                                 <input type="hidden" name="book_id" value="{{ $book->id }}">
@@ -113,9 +117,29 @@
 
                     <!-- Description -->
                     @if($book->description)
-                        <div class="mb-6">
-                            <h3 class="text-lg font-semibold text-gray-900 mb-2">About This Book</h3>
+                        <div class="mb-8">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-2 border-b border-gray-100 pb-2">About This Book</h3>
                             <p class="text-gray-700 leading-relaxed">{{ $book->description }}</p>
+                        </div>
+                    @endif
+
+                    <!-- Contents -->
+                    @if($book->contents)
+                        <div class="mb-6">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-4 border-b border-gray-100 pb-2">Table of Contents</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2">
+                                @php
+                                    $contentList = array_map('trim', explode(',', $book->contents));
+                                @endphp
+                                @foreach($contentList as $item)
+                                    <div class="flex items-start gap-2 text-sm text-gray-600">
+                                        <svg class="w-4 h-4 text-indigo-400 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        </svg>
+                                        <span>{{ $item }}</span>
+                                    </div>
+                                @endforeach
+                            </div>
                         </div>
                     @endif
                 </div>
